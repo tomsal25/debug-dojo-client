@@ -1,57 +1,99 @@
-import { css, styled } from "goober";
-import { createGlobalStyles } from "goober/global";
-import { useState } from "preact/hooks";
+import { css } from "@emotion/react";
+import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
+import MuiAccordionDetails from "@mui/material/AccordionDetails";
+import MuiAccordionSummary, {
+  AccordionSummaryProps,
+} from "@mui/material/AccordionSummary";
+import Button from "@mui/material/Button";
+import GlobalStyles from "@mui/material/GlobalStyles";
+import { styled } from "@mui/material/styles";
+import React, { useState } from "react";
 import { API_DATA, getApiData } from "./utils/getApiData";
 
-const GlobalStyles = createGlobalStyles`
-  * {
-    padding: 0;
-    margin: 0;
-  }
-  body {
-    width: 100vw;
-    height: 100vh;
-  }
-  body, #app {
-    display: flex;
-    place-items: center;
-    justify-content: center;
-  }
-`;
-
-const card = css`
+const Card = styled("div")`
   width: 90vw;
   height: 90vh;
   background: skyblue;
   overflow-y: scroll;
 `;
 
-const UpdateButton = styled("button")`
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: black;
-  color: white;
-  cursor: pointer;
+const Accordion = styled((props: AccordionProps) => (
+  <MuiAccordion disableGutters elevation={0} square {...props} />
+))(({ theme }) => ({
+  border: `1px solid ${theme.palette.divider}`,
+  "&:not(:last-child)": {
+    borderBottom: 0,
+  },
+  "&:before": {
+    display: "none",
+  },
+  "& pre": {
+    background: "lightgray",
+    marginLeft: "1em",
+    whiteSpace: "pre",
+  },
+}));
 
-  &:disabled {
-    background-color: gray;
-  }
-`;
+const AccordionSummary = styled((props: AccordionSummaryProps) => (
+  <MuiAccordionSummary
+    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "0.9rem" }} />}
+    {...props}
+  />
+))(({ theme }) => ({
+  backgroundColor:
+    theme.palette.mode === "dark"
+      ? "rgba(255, 255, 255, .05)"
+      : "rgba(0, 0, 0, .03)",
+  flexDirection: "row-reverse",
+  "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
+    transform: "rotate(90deg)",
+  },
+  "& .MuiAccordionSummary-content": {
+    marginLeft: theme.spacing(1),
+  },
+}));
+
+const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+  padding: theme.spacing(2),
+  borderTop: "1px solid rgba(0, 0, 0, .125)",
+}));
 
 export function App() {
   const [count, setCount] = useState(1);
   const [data, setData] = useState<readonly API_DATA[]>([]);
   const [connect, setConnect] = useState(false);
+  const [codeExpanded, setCodeExpanded] = useState<string | false>(false);
+  const [testExpanded, setTestExpanded] = useState(false);
+
+  const handleChange =
+    (panel: string) => (_: React.SyntheticEvent, newExpanded: boolean) => {
+      setCodeExpanded(newExpanded ? panel : false);
+      setTestExpanded(!newExpanded && false);
+    };
 
   return (
     <>
-      <GlobalStyles />
-      <div className={card}>
-        <UpdateButton
+      <GlobalStyles
+        styles={{
+          "*": {
+            padding: "0",
+            margin: "0",
+          },
+          body: {
+            width: "100vw",
+            height: "100vh",
+          },
+          "body, #app": {
+            display: "flex",
+            placeItems: "center",
+            justifyContent: "center",
+          },
+        }}
+      />
+      <Card>
+        <Button
+          variant="contained"
           disabled={connect}
           onClick={() => {
             setConnect(true);
@@ -59,7 +101,7 @@ export function App() {
               .then(dt => {
                 setData([...data, ...dt]);
                 setCount(count => count + 1);
-                console.table(dt);
+                // console.table(dt);
               })
               .catch(err => {
                 if (import.meta.env.DEV) {
@@ -72,46 +114,51 @@ export function App() {
           }}
         >
           {count}
-        </UpdateButton>
+        </Button>
 
         <div>
           {data.map((dt, i) => (
-            <p
+            <Accordion
+              expanded={codeExpanded === `panel${i}`}
+              onChange={handleChange(`panel${i}`)}
               key={i}
-              className={css`
+              css={css`
                 margin-bottom: 2em;
               `}
             >
-              <details
-                className={css`
-                  & pre {
-                    background: lightgray;
-                    margin-left: 1em;
-                    white-space: pre;
-                  }
-                `}
-              >
-                <summary>
-                  {dt.id}: {dt.description}
-                  <pre>
-                    <code>{dt.code}</code>
-                  </pre>
-                </summary>
-                <details
-                  className={css`
-                    margin: 1em;
+              <AccordionSummary>
+                {dt.id}: {dt.description}
+              </AccordionSummary>
+              <AccordionDetails>
+                <pre
+                  css={css`
+                    margin-bottom: 1em;
                   `}
                 >
-                  <summary>test</summary>
-                  <pre>
-                    <code>{dt.test}</code>
-                  </pre>
-                </details>
-              </details>
-            </p>
+                  <code>{dt.code}</code>
+                </pre>
+                <Accordion
+                  expanded={testExpanded}
+                  onChange={(_, expanded) =>
+                    setTestExpanded(!!codeExpanded && expanded)
+                  }
+                >
+                  <AccordionSummary>test</AccordionSummary>
+                  <AccordionDetails
+                    css={css`
+                      margin: 1em;
+                    `}
+                  >
+                    <pre>
+                      <code>{dt.test}</code>
+                    </pre>
+                  </AccordionDetails>
+                </Accordion>
+              </AccordionDetails>
+            </Accordion>
           ))}
         </div>
-      </div>
+      </Card>
     </>
   );
 }

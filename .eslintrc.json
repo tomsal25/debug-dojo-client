@@ -5,17 +5,25 @@
   },
   "extends": [
     "eslint:recommended",
-    "preact",
+    "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:@typescript-eslint/strict",
     "prettier"
   ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "ignorePatterns": ["vite.config.ts"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": { "project": "./tsconfig.json" },
-  "plugins": ["react", "@typescript-eslint"],
+  "plugins": ["react-refresh"],
   "rules": {
-    "jest/no-deprecated-functions": 0
+    "react-refresh/only-export-components": "warn",
+    "react/no-unknown-property": ["error", { "ignore": ["css"] }],
+    "react/react-in-jsx-scope": "off"
   }
 }
