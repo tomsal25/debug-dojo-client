@@ -1,117 +1,157 @@
-import { css, styled } from "goober";
-import { createGlobalStyles } from "goober/global";
-import { useState } from "preact/hooks";
+import { css } from "@emotion/react";
+import { PaletteMode } from "@mui/material";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import GlobalStyles from "@mui/material/GlobalStyles";
+import Toolbar from "@mui/material/Toolbar";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { useEffect, useState } from "react";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+} from "./components/Accordion";
+import { Header } from "./components/Header";
+import { ColorModeContext } from "./stores/ColorModeContext";
 import { API_DATA, getApiData } from "./utils/getApiData";
 
-const GlobalStyles = createGlobalStyles`
-  * {
-    padding: 0;
-    margin: 0;
-  }
-  body {
-    width: 100vw;
-    height: 100vh;
-  }
-  body, #app {
-    display: flex;
-    place-items: center;
-    justify-content: center;
-  }
-`;
+const lightTheme = createTheme({
+  palette: {
+    mode: "light",
+  },
+});
 
-const card = css`
-  width: 90vw;
-  height: 90vh;
-  background: skyblue;
-  overflow-y: scroll;
-`;
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
 
-const UpdateButton = styled("button")`
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: black;
-  color: white;
-  cursor: pointer;
+export const App = () => {
+  const [theme, setTheme] = useState<PaletteMode>("light");
 
-  &:disabled {
-    background-color: gray;
-  }
-`;
+  const colorModeChanger = {
+    toggleColorMode: () => {
+      setTheme(prevMode => (prevMode == "light" ? "dark" : "light"));
+    },
+  };
 
-export function App() {
+  return (
+    <>
+      <ColorModeContext.Provider value={colorModeChanger}>
+        <ThemeProvider theme={theme == "light" ? lightTheme : darkTheme}>
+          <CssBaseline />
+          <GlobalStyles
+            styles={{
+              "*": {
+                padding: "0",
+                margin: "0",
+              },
+            }}
+          />
+          <Header />
+          {/* for margin */}
+          <Toolbar />
+          <DataItemList />
+        </ThemeProvider>
+      </ColorModeContext.Provider>
+    </>
+  );
+};
+
+function DataItemList() {
   const [count, setCount] = useState(1);
   const [data, setData] = useState<readonly API_DATA[]>([]);
   const [connect, setConnect] = useState(false);
 
   return (
-    <>
-      <GlobalStyles />
-      <div className={card}>
-        <UpdateButton
-          disabled={connect}
-          onClick={() => {
-            setConnect(true);
-            getApiData(count)
-              .then(dt => {
-                setData([...data, ...dt]);
-                setCount(count => count + 1);
-                console.table(dt);
-              })
-              .catch(err => {
-                if (import.meta.env.DEV) {
-                  console.log(err);
-                }
-              })
-              .finally(() => {
-                setConnect(false);
-              });
-          }}
-        >
-          {count}
-        </UpdateButton>
+    <Container sx={{ my: 2 }}>
+      <Button
+        variant="contained"
+        disabled={connect}
+        onClick={() => {
+          setConnect(true);
+          getApiData(count)
+            .then(dt => {
+              setData([...data, ...dt]);
+              setCount(count => count + 1);
+              // console.table(dt);
+            })
+            .catch(err => {
+              if (import.meta.env.DEV) {
+                console.log(err);
+              }
+            })
+            .finally(() => {
+              setConnect(false);
+            });
+        }}
+      >
+        {count}
+      </Button>
 
-        <div>
-          {data.map((dt, i) => (
-            <p
-              key={i}
-              className={css`
-                margin-bottom: 2em;
-              `}
-            >
-              <details
-                className={css`
-                  & pre {
-                    background: lightgray;
-                    margin-left: 1em;
-                    white-space: pre;
-                  }
-                `}
-              >
-                <summary>
-                  {dt.id}: {dt.description}
-                  <pre>
-                    <code>{dt.code}</code>
-                  </pre>
-                </summary>
-                <details
-                  className={css`
-                    margin: 1em;
-                  `}
-                >
-                  <summary>test</summary>
-                  <pre>
-                    <code>{dt.test}</code>
-                  </pre>
-                </details>
-              </details>
-            </p>
-          ))}
-        </div>
-      </div>
-    </>
+      <>
+        {data.map((dt, i) => (
+          <DataItem key={i} dt={dt} />
+        ))}
+      </>
+    </Container>
+  );
+}
+
+function DataItem({ dt }: { dt: API_DATA }) {
+  const [codeExpanded, setCodeExpanded] = useState<boolean>(false);
+
+  const handleExpand = () => {
+    setCodeExpanded(!codeExpanded);
+  };
+
+  return (
+    <Accordion expanded={codeExpanded} onChange={handleExpand}>
+      <AccordionSummary>
+        {dt.id}: {dt.description}
+      </AccordionSummary>
+      <AccordionDetails>
+        <pre
+          css={css`
+            margin-bottom: 1em;
+          `}
+        >
+          <code>{dt.code}</code>
+        </pre>
+        <NewFunction_1 codeExpanded={codeExpanded} dt={dt} />
+      </AccordionDetails>
+    </Accordion>
+  );
+}
+
+function NewFunction_1({
+  codeExpanded,
+  dt,
+}: {
+  codeExpanded: boolean;
+  dt: API_DATA;
+}) {
+  const [testExpanded, setTestExpanded] = useState(false);
+
+  useEffect(() => {
+    if (!codeExpanded) {
+      setTestExpanded(false);
+    }
+  }, [codeExpanded]);
+
+  return (
+    <Accordion
+      expanded={testExpanded}
+      onChange={() => setTestExpanded(codeExpanded && !testExpanded)}
+    >
+      <AccordionSummary>test</AccordionSummary>
+      <AccordionDetails>
+        <pre>
+          <code>{dt.test}</code>
+        </pre>
+      </AccordionDetails>
+    </Accordion>
   );
 }

@@ -1,9 +1,11 @@
-import { setup } from "goober";
-import { h, render } from "preact";
+import React from "react";
+import { createRoot } from "react-dom/client";
 
 import { App } from "./app.tsx";
 
-setup(h);
-
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-render(<App />, document.getElementById("app")!);
+createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
