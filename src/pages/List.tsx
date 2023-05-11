@@ -9,7 +9,7 @@ import {
 } from "../components/Accordion";
 import { API_DATA, getApiData } from "../utils/getApiData";
 
-export default function Home() {
+export default function List() {
   const [count, setCount] = useState(1);
   const [data, setData] = useState<readonly API_DATA[]>([]);
   const [connect, setConnect] = useState(false);

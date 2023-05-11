@@ -4,8 +4,8 @@ import GlobalStyles from "@mui/material/GlobalStyles";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
 import Layout from "./pages/Layout";
+import List from "./pages/List";
 import { ColorModeContext } from "./stores/ColorModeContext";
 
 const lightTheme = createTheme({
@@ -45,7 +45,7 @@ export const App = () => {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Layout />}>
-                <Route index element={<Home />} />
+                <Route index element={<List />} />
               </Route>
             </Routes>
           </BrowserRouter>
