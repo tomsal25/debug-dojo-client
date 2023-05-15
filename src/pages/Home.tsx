@@ -1,106 +1,50 @@
-import { css } from "@emotion/react";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import { useEffect, useState } from "react";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-} from "../components/Accordion";
-import { API_DATA, getApiData } from "../utils/getApiData";
+import Typography, { TypographyProps } from "@mui/material/Typography";
+import * as HrefList from "./HrefList";
+
+const StrongContext = (props: TypographyProps) => (
+  <Typography
+    variant="inherit"
+    component="div"
+    sx={{ fontSize: { xs: "4.5vw", sm: "2rem" } }}
+  >
+    {props.children}
+  </Typography>
+);
+
+const Big = (props: TypographyProps) => (
+  <Typography
+    variant="inherit"
+    component="span"
+    sx={{ fontSize: "1.8em", fontWeight: "bold  " }}
+  >
+    {props.children}
+  </Typography>
+);
 
 export default function Home() {
-  const [count, setCount] = useState(1);
-  const [data, setData] = useState<readonly API_DATA[]>([]);
-  const [connect, setConnect] = useState(false);
-
   return (
     <Container sx={{ my: 2 }}>
-      <Button
-        variant="contained"
-        disabled={connect}
-        onClick={() => {
-          setConnect(true);
-          getApiData(count)
-            .then(dt => {
-              setData([...data, ...dt]);
-              setCount(count => count + 1);
-              // console.table(dt);
-            })
-            .catch(err => {
-              if (import.meta.env.DEV) {
-                console.log(err);
-              }
-            })
-            .finally(() => {
-              setConnect(false);
-            });
-        }}
-      >
-        {count}
-      </Button>
+      <StrongContext>
+        <Big>Our</Big> code is written by AI (and 1% of me).
+      </StrongContext>
+      <StrongContext>
+        But it includes <Big>one</Big> mistake.
+      </StrongContext>
+      <StrongContext>
+        Can you <Big>debug</Big> it?
+      </StrongContext>
 
-      <>
-        {data.map((dt, i) => (
-          <DataItem key={i} dt={dt} />
-        ))}
-      </>
+      <Box sx={{ mt: 3 }}>
+        <Button href={HrefList.list} variant="contained">
+          List
+        </Button>
+        <Button href={HrefList.code + `/${Date.now()}`} variant="contained">
+          Random Code
+        </Button>
+      </Box>
     </Container>
-  );
-}
-
-function DataItem({ dt }: { dt: API_DATA }) {
-  const [codeExpanded, setCodeExpanded] = useState<boolean>(false);
-
-  const handleExpand = () => {
-    setCodeExpanded(!codeExpanded);
-  };
-
-  return (
-    <Accordion expanded={codeExpanded} onChange={handleExpand}>
-      <AccordionSummary>
-        {dt.id}: {dt.description}
-      </AccordionSummary>
-      <AccordionDetails>
-        <pre
-          css={css`
-            margin-bottom: 1em;
-          `}
-        >
-          <code>{dt.code}</code>
-        </pre>
-        <NewFunction_1 codeExpanded={codeExpanded} dt={dt} />
-      </AccordionDetails>
-    </Accordion>
-  );
-}
-
-function NewFunction_1({
-  codeExpanded,
-  dt,
-}: {
-  codeExpanded: boolean;
-  dt: API_DATA;
-}) {
-  const [testExpanded, setTestExpanded] = useState(false);
-
-  useEffect(() => {
-    if (!codeExpanded) {
-      setTestExpanded(false);
-    }
-  }, [codeExpanded]);
-
-  return (
-    <Accordion
-      expanded={testExpanded}
-      onChange={() => setTestExpanded(codeExpanded && !testExpanded)}
-    >
-      <AccordionSummary>test</AccordionSummary>
-      <AccordionDetails>
-        <pre>
-          <code>{dt.test}</code>
-        </pre>
-      </AccordionDetails>
-    </Accordion>
   );
 }
