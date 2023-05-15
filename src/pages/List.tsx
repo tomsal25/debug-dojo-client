@@ -7,7 +7,8 @@ import {
   AccordionDetails,
   AccordionSummary,
 } from "../components/Accordion";
-import { API_DATA, getApiData } from "../utils/getApiData";
+import { API_DATA, getList } from "../utils/getApiData";
+import * as HrefList from "./HrefList";
 
 export default function List() {
   const [count, setCount] = useState(1);
@@ -16,12 +17,15 @@ export default function List() {
 
   return (
     <Container sx={{ my: 2 }}>
+      <Button href={HrefList.home} variant="contained" sx={{ mr: 1 }}>
+        Home
+      </Button>
       <Button
         variant="contained"
         disabled={connect}
         onClick={() => {
           setConnect(true);
-          getApiData(count)
+          getList(count)
             .then(dt => {
               setData([...data, ...dt]);
               setCount(count => count + 1);
@@ -59,7 +63,7 @@ function DataItem({ dt }: { dt: API_DATA }) {
   return (
     <Accordion expanded={codeExpanded} onChange={handleExpand}>
       <AccordionSummary>
-        {dt.id}: {dt.description}
+        {dt.id}: {dt.summary}
       </AccordionSummary>
       <AccordionDetails>
         <pre
