@@ -1,4 +1,5 @@
 import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
 import { useState } from "react";
 import { API_DATA, getCode } from "../utils/getApiData";
 import * as HrefList from "./HrefList";
@@ -6,7 +7,7 @@ import * as HrefList from "./HrefList";
 export default function Code() {
   const [text, setText] = useState<API_DATA>();
   return (
-    <>
+    <Container sx={{ my: 2 }}>
       <Button href={HrefList.home} variant="contained" sx={{ mr: 1 }}>
         Home
       </Button>
@@ -32,6 +33,6 @@ export default function Code() {
       <div>{text?.test}</div>
       <br />
       <div>{text?.summary}</div>
-    </>
+    </Container>
   );
 }
