@@ -1,6 +1,9 @@
+import Editor from "@monaco-editor/react";
+import { useTheme } from "@mui/material";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import { useState } from "react";
+import { editor } from "monaco-editor";
+import { useEffect, useRef, useState } from "react";
 import { API_DATA, getCode } from "../utils/getApiData";
 import * as HrefList from "./HrefList";
 
@@ -28,9 +31,23 @@ export default function Code() {
       >
         Info
       </Button>
-      <div>{text?.code}</div>
-      <br />
-      <div>{text?.test}</div>
+      <Editor
+        height="60vh"
+        defaultLanguage="javascript"
+        options={{
+          lineNumbers: "off",
+          folding: false,
+          glyphMargin: false,
+          lineDecorationsWidth: 0,
+          minimap: { enabled: false },
+        }}
+        theme={theme.palette.mode == "light" ? "light" : "vs-dark"}
+        onMount={editor => {
+          editorRef.current = editor;
+          setEditorLoaded(true);
+        }}
+        value={text.code}
+      />
       <br />
       <div>{text?.summary}</div>
     </Container>
