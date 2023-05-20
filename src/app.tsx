@@ -5,11 +5,12 @@ import { ThemeOptions, ThemeProvider, createTheme } from "@mui/material/styles";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { LinkBehavior } from "./components/LinkBehavior";
-import Code from "./pages/Code";
+import ValidateCode from "./pages/Code";
 import Home from "./pages/Home";
 import * as HrefList from "./pages/HrefList";
 import Layout from "./pages/Layout";
 import NotFound from "./pages/NotFound";
+import RandomCode from "./pages/RandomCode";
 import { ColorModeContext } from "./stores/ColorModeContext";
 
 const customComponents: ThemeOptions["components"] = {
@@ -61,7 +62,14 @@ export const App = () => {
               <Route path={HrefList.home} element={<Layout />}>
                 <Route index element={<Home />} />
                 {/* <Route path={HrefList.list} element={<List />} /> */}
-                <Route path={`${HrefList.code}/:id`} element={<Code />} />
+                <Route
+                  path={`${HrefList.code}/:id`}
+                  element={<ValidateCode />}
+                />
+                <Route
+                  path={`${HrefList.code}/random`}
+                  element={<RandomCode />}
+                />
                 <Route path="/*" element={<NotFound />} />
               </Route>
             </Routes>

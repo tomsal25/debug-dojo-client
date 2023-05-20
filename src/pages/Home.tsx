@@ -41,7 +41,7 @@ export default function Home() {
         {/* <Button href={HrefList.list} variant="contained">
           List
         </Button> */}
-        <Button href={HrefList.code + `/${Date.now()}`} variant="contained">
+        <Button href={HrefList.code + `/random`} variant="contained">
           Random Code
         </Button>
       </Box>
