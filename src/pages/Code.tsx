@@ -1,84 +1,60 @@
 import Editor from "@monaco-editor/react";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useTheme } from "@mui/material";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
+import Fab from "@mui/material/Fab";
 import Fade from "@mui/material/Fade";
 import { editor } from "monaco-editor";
 import { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+} from "../components/Accordion";
+import { Loading } from "../components/Loading";
 import { API_DATA, API_DATA_ERROR_STATUS, getCode } from "../utils/getApiData";
+import { testCode } from "../utils/testCode";
+import { isPositiveInteger } from "../utils/validator";
 import * as HrefList from "./HrefList";
+import NetworkError from "./NetworkError";
+import NotFound from "./NotFound";
 
-const testCode = (sourceCode: string, testCode: string) => {
-  const resultList = testCode.split("\n").map(e => {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-implied-eval
-      const result = new Function(sourceCode + ";return " + e)() as boolean;
-      return result;
-    } catch (err) {
-      return false;
-    }
-  });
-  console.log(resultList);
-  resultList.every(isPassed => isPassed);
-  return resultList;
+const CodeInfo = (props: { id: number; info: string }) => {
+  const [testExpanded, setTestExpanded] = useState(false);
+
+  return (
+    <Accordion
+      expanded={testExpanded}
+      onChange={() => setTestExpanded(!testExpanded)}
+      sx={{ mb: 1 }}
+    >
+      <AccordionSummary>{`ID: ${props.id}`}</AccordionSummary>
+      <AccordionDetails>{`summary: ${props.info}`}</AccordionDetails>
+    </Accordion>
+  );
 };
 
-export default function Code() {
-  const [text, setText] = useState<API_DATA>({
-    id: -1,
-    code: "",
-    test: "",
-    summary: "",
-  });
+const Code = ({ rawData }: { rawData: API_DATA }) => {
   const [result, setResult] = useState("init");
-  const [apiLoaded, setApiLoaded] = useState(false);
-  const [editorLoaded, setEditorLoaded] = useState(false);
+  const [isEditorLoaded, setIsEditorLoaded] = useState(false);
 
   const editorRef = useRef<editor.IStandaloneCodeEditor>();
 
   const theme = useTheme();
-
-  useEffect(() => {
-    const abortController = new AbortController();
-    getCode(1, abortController.signal)
-      .then(res => {
-        console.log(res);
-        setText(res);
-        setApiLoaded(true);
-      })
-      .catch(err => {
-        // ignore aborted fetch
-        if (err == API_DATA_ERROR_STATUS.ABORT) return;
-        if (import.meta.env.DEV) {
-          console.log(err);
-        }
-      });
-    return () => {
-      abortController.abort();
-    };
-  }, []);
 
   return (
     <Container sx={{ my: 2 }}>
       <Button href={HrefList.home} variant="contained" sx={{ mr: 1 }}>
         Home
       </Button>
-      <Fade in={apiLoaded && editorLoaded}>
-        <Button
-          onClick={() => {
-            const userCode = editorRef.current?.getValue();
-            if (!userCode) return;
-            const res = testCode(userCode, text.test);
-            setResult(res.every(flag => flag) ? "Passed!" : "Failed...");
-            console.log(userCode);
-          }}
-        >
-          test!
-        </Button>
-      </Fade>
-      <div>{result}</div>
+
+      <Loading open={!isEditorLoaded} />
+
+      <CodeInfo id={rawData.id} info={rawData.summary} />
+
       <Editor
-        height="60vh"
         defaultLanguage="javascript"
         options={{
           lineNumbers: "off",
@@ -87,15 +63,118 @@ export default function Code() {
           lineDecorationsWidth: 0,
           minimap: { enabled: false },
         }}
+        loading={null}
+        height="50vh"
         theme={theme.palette.mode == "light" ? "light" : "vs-dark"}
         onMount={editor => {
           editorRef.current = editor;
-          setEditorLoaded(true);
+          setIsEditorLoaded(true);
         }}
-        value={text.code}
+        value={rawData.code}
       />
+
+      <Fade in={isEditorLoaded}>
+        <Fab
+          onClick={() => {
+            const userCode = editorRef.current?.getValue();
+            if (!userCode) return;
+            setResult("testing");
+            testCode(userCode, rawData.test)
+              .then(res => {
+                if (import.meta.env.DEV) {
+                  console.log(res);
+                }
+                // TODO: consider how to display result
+                setResult(
+                  res.every(flag => flag.type == "code" && flag.flag)
+                    ? "Passed!"
+                    : new Date().toLocaleString() +
+                        ": " +
+                        res
+                          .map(flag => {
+                            if (flag.type == "code")
+                              return flag.flag ? "o" : "x";
+                            if (flag.type == "error") return flag.name;
+                            return "timeout";
+                          })
+                          .join(", ")
+                );
+              })
+              .catch(error => {
+                if (import.meta.env.DEV) {
+                  console.log(error);
+                }
+              });
+          }}
+          variant="extended"
+          color="primary"
+          sx={{
+            position: "fixed",
+            bottom: { xs: 30, md: 60 },
+            right: { xs: 30, md: "10vw" },
+            transform: { md: "scale(1.2)" },
+          }}
+        >
+          <PlayArrowIcon />
+          Run
+        </Fab>
+      </Fade>
+
       <br />
-      <div>{text.summary}</div>
+      <div>{result}</div>
     </Container>
   );
+};
+
+interface Init {
+  type: 0;
+}
+
+interface NotFound {
+  type: 1;
+}
+
+interface NetworkError {
+  type: 2;
+}
+
+interface Normal {
+  type: 3;
+  data: API_DATA;
+}
+
+type Status = Init | NotFound | NetworkError | Normal;
+
+export default function ValidateCode({ id }: { id?: number }) {
+  const [status, setStatus] = useState<Status>({ type: 0 });
+
+  const param = useParams();
+  const _id = id ? `${id}` : param.id;
+
+  useEffect(() => {
+    if (!_id || !isPositiveInteger.test(_id)) {
+      return setStatus({ type: 1 });
+    }
+
+    const abortController = new AbortController();
+    const requestId = parseInt(_id, 10);
+
+    getCode(requestId, abortController.signal)
+      .then(data => setStatus({ type: 3, data: data }))
+      .catch(error => {
+        // ignore aborted fetch
+        if (error == API_DATA_ERROR_STATUS.ABORT) return;
+        if (error == API_DATA_ERROR_STATUS.OUT) return setStatus({ type: 1 });
+        return setStatus({ type: 2 });
+      });
+
+    return () => {
+      abortController.abort();
+    };
+  }, [_id]);
+
+  if (status.type == 1) return <NotFound />;
+  if (status.type == 2) return <NetworkError />;
+  if (status.type == 3) return <Code rawData={status.data} />;
+  return <Loading />;
 }

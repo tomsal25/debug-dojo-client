@@ -1,15 +1,6 @@
 export interface API_INFO {
-  limit: string;
+  limit: number;
 }
-
-export const getInfo = async (signal: AbortSignal) => {
-  return new Promise<API_INFO>((resolve, reject) => {
-    fetch(`${import.meta.env.VITE_API_URL}/info`, { signal })
-      .then(res => res.json())
-      .then((apiData: API_INFO) => resolve(apiData))
-      .catch(reject);
-  });
-};
 
 export interface API_DATA {
   id: number;
@@ -32,7 +23,16 @@ const rejectHandler = (err: Error, reject: (reason: unknown) => void) => {
   return reject(API_DATA_ERROR_STATUS.OTHER);
 };
 
-export const getCode = async (id: number, signal: AbortSignal) => {
+export const getInfo = async (signal?: AbortSignal) => {
+  return new Promise<API_INFO>((resolve, reject) => {
+    fetch(`${import.meta.env.VITE_API_URL}/info`, { signal })
+      .then(res => res.json())
+      .then((apiData: API_INFO) => resolve(apiData))
+      .catch((err: Error) => rejectHandler(err, reject));
+  });
+};
+
+export const getCode = async (id: number, signal?: AbortSignal) => {
   return new Promise<API_DATA>((resolve, reject) => {
     fetch(`${import.meta.env.VITE_API_URL}/code?id=${id}`, { signal })
       .then(res => {
@@ -53,7 +53,7 @@ export const getCode = async (id: number, signal: AbortSignal) => {
   });
 };
 
-export const getList = async (page: number, signal: AbortSignal) => {
+export const getList = async (page: number, signal?: AbortSignal) => {
   return new Promise<API_DATA[]>((resolve, reject) => {
     fetch(`${import.meta.env.VITE_API_URL}/list?p=${page}`, { signal })
       .then(res => {
