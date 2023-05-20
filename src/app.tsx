@@ -9,7 +9,6 @@ import Code from "./pages/Code";
 import Home from "./pages/Home";
 import * as HrefList from "./pages/HrefList";
 import Layout from "./pages/Layout";
-import List from "./pages/List";
 import NotFound from "./pages/NotFound";
 import { ColorModeContext } from "./stores/ColorModeContext";
 
@@ -61,7 +60,7 @@ export const App = () => {
             <Routes>
               <Route path={HrefList.home} element={<Layout />}>
                 <Route index element={<Home />} />
-                <Route path={HrefList.list} element={<List />} />
+                {/* <Route path={HrefList.list} element={<List />} /> */}
                 <Route path={`${HrefList.code}/:id`} element={<Code />} />
                 <Route path="/*" element={<NotFound />} />
               </Route>

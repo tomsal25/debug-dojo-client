@@ -38,9 +38,9 @@ export default function Home() {
       </StrongContext>
 
       <Box sx={{ mt: 3 }}>
-        <Button href={HrefList.list} variant="contained">
+        {/* <Button href={HrefList.list} variant="contained">
           List
-        </Button>
+        </Button> */}
         <Button href={HrefList.code + `/${Date.now()}`} variant="contained">
           Random Code
         </Button>
