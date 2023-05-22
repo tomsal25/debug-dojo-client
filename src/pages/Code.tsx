@@ -1,7 +1,6 @@
 import Editor from "@monaco-editor/react";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useTheme } from "@mui/material";
-import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Fab from "@mui/material/Fab";
 import Fade from "@mui/material/Fade";
@@ -17,7 +16,6 @@ import { Loading } from "../components/Loading";
 import { API_DATA, API_DATA_ERROR_STATUS, getCode } from "../utils/getApiData";
 import { testCode } from "../utils/testCode";
 import { isPositiveInteger } from "../utils/validator";
-import * as HrefList from "./HrefList";
 import NetworkError from "./NetworkError";
 import NotFound from "./NotFound";
 
@@ -46,10 +44,6 @@ const Code = ({ rawData }: { rawData: API_DATA }) => {
 
   return (
     <Container sx={{ my: 2 }}>
-      <Button href={HrefList.home} variant="contained" sx={{ mr: 1 }}>
-        Home
-      </Button>
-
       <Loading open={!isEditorLoaded} />
 
       <CodeInfo id={rawData.id} info={rawData.summary} />

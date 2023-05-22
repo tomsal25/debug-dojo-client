@@ -19,6 +19,11 @@ const customComponents: ThemeOptions["components"] = {
       LinkComponent: LinkBehavior,
     },
   },
+  MuiListItemButton: {
+    defaultProps: {
+      LinkComponent: LinkBehavior,
+    },
+  },
 };
 
 const lightTheme = createTheme({
@@ -39,9 +44,7 @@ export const App = () => {
   const [theme, setTheme] = useState<PaletteMode>("light");
 
   const colorModeChanger = {
-    toggleColorMode: () => {
-      setTheme(prevMode => (prevMode == "light" ? "dark" : "light"));
-    },
+    setPaletteMode: (paletteMode: PaletteMode) => setTheme(paletteMode),
   };
 
   return (
