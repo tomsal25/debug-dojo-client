@@ -1,9 +1,14 @@
 import Editor from "@monaco-editor/react";
+import HelpIcon from "@mui/icons-material/Help";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useTheme } from "@mui/material";
+import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Fab from "@mui/material/Fab";
 import Fade from "@mui/material/Fade";
+import Switch from "@mui/material/Switch";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 import { editor } from "monaco-editor";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -38,6 +43,18 @@ const Code = ({ rawData }: { rawData: API_DATA }) => {
   const [result, setResult] = useState("init");
   const [isEditorLoaded, setIsEditorLoaded] = useState(false);
 
+  const [canUseWorker, setCanUseWorker] = useState(false);
+  const [isUseWorker, setIsUseWorker] = useState(true);
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (!window.Worker) {
+      setCanUseWorker(false);
+    } else {
+      setCanUseWorker(true);
+    }
+  }, []);
+
   const editorRef = useRef<editor.IStandaloneCodeEditor>();
 
   const theme = useTheme();
@@ -46,26 +63,82 @@ const Code = ({ rawData }: { rawData: API_DATA }) => {
     <Container sx={{ my: 2 }}>
       <Loading open={!isEditorLoaded} />
 
-      <CodeInfo id={rawData.id} info={rawData.summary} />
+      <Box
+        sx={{ display: "flex", alignItems: "center", justifyContent: "end" }}
+      >
+        <Switch
+          value={isUseWorker}
+          onChange={event =>
+            canUseWorker && setIsUseWorker(event.target.checked)
+          }
+          disabled={!canUseWorker}
+          defaultChecked={canUseWorker}
+        />
 
-      <Editor
-        defaultLanguage="javascript"
-        options={{
-          lineNumbers: "off",
-          folding: false,
-          glyphMargin: false,
-          lineDecorationsWidth: 0,
-          minimap: { enabled: false },
+        <Typography sx={{ mr: 1 }}>Safe mode</Typography>
+
+        <Tooltip
+          title={
+            <>
+              {canUseWorker ? (
+                ""
+              ) : (
+                <Typography
+                  sx={{
+                    p: 0.5,
+                    fontSize: "1.1em",
+                    color: "#e31",
+                    background: "#eee",
+                  }}
+                >
+                  !!! WARNING !!!
+                  <br />
+                  You can NOT use this feature because your browser does not
+                  support Web Worker.
+                </Typography>
+              )}
+              Safe Mode allows you to run your code safely.
+              <br />* You can avoid infinite loops.
+            </>
+          }
+          enterTouchDelay={0}
+          leaveTouchDelay={5000}
+          placement="bottom-start"
+        >
+          <HelpIcon />
+        </Tooltip>
+      </Box>
+
+      <Box
+        sx={{
+          my: 1,
+          p: 1,
+          border: "0.1rem outset",
+          borderRadius: 3.5,
+          borderColor: theme => theme.palette.primary.main,
         }}
-        loading={null}
-        height="50vh"
-        theme={theme.palette.mode == "light" ? "light" : "vs-dark"}
-        onMount={editor => {
-          editorRef.current = editor;
-          setIsEditorLoaded(true);
-        }}
-        value={rawData.code}
-      />
+      >
+        <Editor
+          defaultLanguage="javascript"
+          options={{
+            lineNumbers: "off",
+            folding: false,
+            glyphMargin: false,
+            lineDecorationsWidth: 0,
+            minimap: { enabled: false },
+          }}
+          loading={null}
+          height="45vh"
+          theme={theme.palette.mode == "light" ? "light" : "vs-dark"}
+          onMount={editor => {
+            editorRef.current = editor;
+            setIsEditorLoaded(true);
+          }}
+          value={rawData.code}
+        />
+      </Box>
+
+      <CodeInfo id={rawData.id} info={rawData.summary} />
 
       <Fade in={isEditorLoaded}>
         <Fab
@@ -73,7 +146,7 @@ const Code = ({ rawData }: { rawData: API_DATA }) => {
             const userCode = editorRef.current?.getValue();
             if (!userCode) return;
             setResult("testing");
-            testCode(userCode, rawData.test)
+            testCode(userCode, rawData.test, isUseWorker)
               .then(res => {
                 if (import.meta.env.DEV) {
                   console.log(res);
@@ -114,7 +187,6 @@ const Code = ({ rawData }: { rawData: API_DATA }) => {
         </Fab>
       </Fade>
 
-      <br />
       <div>{result}</div>
     </Container>
   );

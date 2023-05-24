@@ -75,7 +75,7 @@ export const testCode = async (
   sourceCode: string,
   testCode: string,
   useWorker = true,
-  timeLimit = 15000
+  timeLimit = 3000
 ): Promise<CodeResponce[]> => {
   const resultList = await Promise.all(
     testCode.split("\n").map(async e => {
