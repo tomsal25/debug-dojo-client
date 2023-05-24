@@ -1,5 +1,3 @@
-import evalWorker from "./eval.worker?worker&inline";
-
 export interface CodeJudge {
   type: "code";
   flag: boolean;
@@ -22,7 +20,7 @@ const limitedEval = async (
   timeLimit: number
 ): Promise<CodeResponce> => {
   return new Promise(resolve => {
-    const worker = new evalWorker();
+    const worker = new Worker(new URL("./eval.worker.ts", import.meta.url));
 
     // set execution time limit
     const timer = setTimeout(() => {
