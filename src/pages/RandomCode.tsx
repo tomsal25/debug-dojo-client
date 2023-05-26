@@ -35,7 +35,6 @@ export default function RandomCode() {
       .catch(error => {
         // ignore aborted fetch
         if (error == API_DATA_ERROR_STATUS.ABORT) return;
-        console.log(error);
 
         return setStatus({ type: 2 });
       });

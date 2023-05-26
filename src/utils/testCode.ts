@@ -1,3 +1,5 @@
+import { canUseWorker, limitedEval } from "./workerUtil";
+
 export interface CodeJudge {
   type: "code";
   flag: boolean;
@@ -13,41 +15,7 @@ interface CodeTimeout {
   type: "timeout";
 }
 
-type CodeResponce = CodeJudge | CodeError | CodeTimeout;
-
-const limitedEval = async (
-  sourceCode: string,
-  timeLimit: number
-): Promise<CodeResponce> => {
-  return new Promise(resolve => {
-    const worker = new Worker(new URL("./eval.worker.ts", import.meta.url));
-
-    // set execution time limit
-    const timer = setTimeout(() => {
-      worker.terminate();
-      resolve({ type: "timeout" });
-    }, timeLimit);
-
-    worker.addEventListener("message", result => {
-      clearTimeout(timer);
-      worker.terminate();
-      resolve(result.data as CodeResponce);
-    });
-
-    // unknown error (it shouldn't called usually)
-    worker.addEventListener("error", error => {
-      clearTimeout(timer);
-      worker.terminate();
-      resolve({ type: "error", name: "unknown", message: "worker error" });
-      if (import.meta.env.DEV) {
-        console.error("Error in worker");
-        console.log(error);
-      }
-    });
-
-    worker.postMessage(sourceCode);
-  });
-};
+export type CodeResponce = CodeJudge | CodeError | CodeTimeout;
 
 const testFunction = (sourceCode: string) => {
   try {
@@ -80,7 +48,7 @@ export const testCode = async (
   const resultList = await Promise.all(
     testCode.split("\n").map(async e => {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      if (useWorker && window.Worker) {
+      if (useWorker && canUseWorker) {
         // FIXME: if sourceCode is "return true;", any test will be passed.
         return await limitedEval(sourceCode + ";return " + e, timeLimit);
       } else {

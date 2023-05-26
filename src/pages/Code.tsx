@@ -21,6 +21,7 @@ import { Loading } from "../components/Loading";
 import { API_DATA, API_DATA_ERROR_STATUS, getCode } from "../utils/getApiData";
 import { testCode } from "../utils/testCode";
 import { isPositiveInteger } from "../utils/validator";
+import { canUseWorker } from "../utils/workerUtil";
 import NetworkError from "./NetworkError";
 import NotFound from "./NotFound";
 
@@ -43,17 +44,7 @@ const Code = ({ rawData }: { rawData: API_DATA }) => {
   const [result, setResult] = useState("init");
   const [isEditorLoaded, setIsEditorLoaded] = useState(false);
 
-  const [canUseWorker, setCanUseWorker] = useState(false);
   const [isUseWorker, setIsUseWorker] = useState(true);
-
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (!window.Worker) {
-      setCanUseWorker(false);
-    } else {
-      setCanUseWorker(true);
-    }
-  }, []);
 
   const editorRef = useRef<editor.IStandaloneCodeEditor>();
 
@@ -67,7 +58,7 @@ const Code = ({ rawData }: { rawData: API_DATA }) => {
         sx={{ display: "flex", alignItems: "center", justifyContent: "end" }}
       >
         <Switch
-          value={isUseWorker}
+          value={canUseWorker && isUseWorker}
           onChange={event =>
             canUseWorker && setIsUseWorker(event.target.checked)
           }

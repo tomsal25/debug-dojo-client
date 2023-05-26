@@ -18,7 +18,7 @@ const Big = (props: TypographyProps) => (
   <Typography
     variant="inherit"
     component="span"
-    sx={{ fontSize: "1.8em", fontWeight: "bold  " }}
+    sx={{ fontSize: "1.8em", fontWeight: "bold" }}
   >
     {props.children}
   </Typography>
@@ -42,7 +42,7 @@ export default function Home() {
           List
         </Button> */}
         <Button href={HrefList.code + `/random`} variant="contained">
-          Random Code
+          Debug Random Code
         </Button>
       </Box>
     </Container>
