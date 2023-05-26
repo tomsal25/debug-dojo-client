@@ -2,14 +2,15 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Typography, { TypographyProps } from "@mui/material/Typography";
+import { SxProps, Theme } from "@mui/material/styles";
 import * as HrefList from "./HrefList";
 
+const commonFontSize: SxProps<Theme> = {
+  fontSize: { xs: "4.5vw", sm: "2rem" },
+};
+
 const StrongContext = (props: TypographyProps) => (
-  <Typography
-    variant="inherit"
-    component="div"
-    sx={{ fontSize: { xs: "4.5vw", sm: "2rem" } }}
-  >
+  <Typography variant="inherit" component="div" sx={commonFontSize}>
     {props.children}
   </Typography>
 );
@@ -41,8 +42,12 @@ export default function Home() {
         {/* <Button href={HrefList.list} variant="contained">
           List
         </Button> */}
-        <Button href={HrefList.code + `/random`} variant="contained">
-          Debug Random Code
+        <Button
+          href={HrefList.code + `/random`}
+          variant="contained"
+          sx={commonFontSize}
+        >
+          Try To Debug
         </Button>
       </Box>
     </Container>
