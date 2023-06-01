@@ -54,6 +54,7 @@ const Code = ({ rawData }: { rawData: API_DATA }) => {
     <Container sx={{ my: 2 }}>
       <Loading open={!isEditorLoaded} />
 
+      {/* safe mode check box */}
       <Box
         sx={{ display: "flex", alignItems: "center", justifyContent: "end" }}
       >
@@ -100,6 +101,7 @@ const Code = ({ rawData }: { rawData: API_DATA }) => {
         </Tooltip>
       </Box>
 
+      {/* editor wrapper */}
       <Box
         sx={{
           my: 1,
@@ -131,6 +133,7 @@ const Code = ({ rawData }: { rawData: API_DATA }) => {
 
       <CodeInfo id={rawData.id} info={rawData.summary} />
 
+      {/* run button */}
       <Fade in={isEditorLoaded}>
         <Fab
           onClick={() => {
