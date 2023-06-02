@@ -25,7 +25,7 @@ import { canUseWorker } from "../utils/workerUtil";
 import NetworkError from "./NetworkError";
 import NotFound from "./NotFound";
 
-const CodeInfo = (props: { id: number; info: string }) => {
+const CodeInfo = ({ id, info }: { id: number; info: string }) => {
   const [testExpanded, setTestExpanded] = useState(false);
 
   return (
@@ -34,8 +34,8 @@ const CodeInfo = (props: { id: number; info: string }) => {
       onChange={() => setTestExpanded(!testExpanded)}
       sx={{ mb: 1 }}
     >
-      <AccordionSummary>{`ID: ${props.id}`}</AccordionSummary>
-      <AccordionDetails>{`summary: ${props.info}`}</AccordionDetails>
+      <AccordionSummary>{`ID: ${id}`}</AccordionSummary>
+      <AccordionDetails>{`summary: ${info}`}</AccordionDetails>
     </Accordion>
   );
 };
