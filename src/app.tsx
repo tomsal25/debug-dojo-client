@@ -69,10 +69,7 @@ export const App = () => {
                   path={`${HrefList.code}/:id`}
                   element={<ValidateCode />}
                 />
-                <Route
-                  path={`${HrefList.code}/random`}
-                  element={<RandomCode />}
-                />
+                <Route path={HrefList.random} element={<RandomCode />} />
                 <Route path="/*" element={<NotFound />} />
               </Route>
             </Routes>

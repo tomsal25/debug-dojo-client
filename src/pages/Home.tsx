@@ -1,3 +1,4 @@
+import CasinoIcon from "@mui/icons-material/Casino";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
@@ -43,8 +44,9 @@ export default function Home() {
           List
         </Button> */}
         <Button
-          href={HrefList.code + `/random`}
+          href={HrefList.random}
           variant="contained"
+          startIcon={<CasinoIcon />}
           sx={commonFontSize}
         >
           Try To Debug

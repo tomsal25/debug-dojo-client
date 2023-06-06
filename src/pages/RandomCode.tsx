@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "../components/Loading";
 import { API_DATA_ERROR_STATUS, getInfo } from "../utils/getApiData";
-import ValidateCode from "./Code";
+import * as HrefList from "./HrefList";
 import NetworkError from "./NetworkError";
 
 interface Init {
@@ -30,7 +30,8 @@ export default function RandomCode() {
     getInfo(abortController.signal)
       .then(data => {
         const id = Math.floor(Math.random() * data.limit) + 1;
-        setStatus({ type: 3, id });
+        // setStatus({ type: 3, id });
+        navigate(`${HrefList.code}/${id}`);
       })
       .catch(error => {
         // ignore aborted fetch
@@ -45,6 +46,7 @@ export default function RandomCode() {
   }, [navigate]);
 
   if (status.type == 2) return <NetworkError />;
-  if (status.type == 3) return <ValidateCode id={status.id} />;
+  // FIXME: redirect instead
+  // if (status.type == 3) return <ValidateCode id={status.id} />;
   return <Loading />;
 }

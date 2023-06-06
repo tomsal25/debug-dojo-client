@@ -49,7 +49,7 @@ export const MenuDrawer = () => {
 
           <List>
             <ListItemLink href={HrefList.home} text="Home" />
-            <ListItemLink href={`${HrefList.code}/random`} text="Random Code" />
+            <ListItemLink href={HrefList.random} text="Random Code" />
           </List>
         </Box>
       </Drawer>
