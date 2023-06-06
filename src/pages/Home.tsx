@@ -44,7 +44,7 @@ export default function Home() {
           List
         </Button> */}
         <Button
-          href={HrefList.code + `/random`}
+          href={HrefList.random}
           variant="contained"
           startIcon={<CasinoIcon />}
           sx={commonFontSize}
