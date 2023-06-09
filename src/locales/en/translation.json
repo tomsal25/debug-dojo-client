@@ -1,0 +1,10 @@
+{
+  "home": {
+    "title": {
+      "1": "My <Big>AI</Big> just wrote some source code.",
+      "2": "But they each include only <Big>one</Big> mistake.",
+      "3": "Can you <Big>debug</Big> it?"
+    },
+    "debugButton": "Try To Debug!"
+  }
+}
