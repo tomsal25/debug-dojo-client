@@ -19,7 +19,8 @@ import ListItemText from "@mui/material/ListItemText";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import Typography from "@mui/material/Typography";
-import { JSX, useContext, useState } from "react";
+import i18next from "i18next";
+import { JSX, useContext, useEffect, useState } from "react";
 import { ColorModeContext } from "../../stores/ColorModeContext";
 
 const ListItemDrawer = ({
@@ -60,14 +61,24 @@ const DarkModePage = () => {
 };
 
 const TranslatePage = () => {
-  const [language, setLanguage] = useState("en");
+  const [language, setLanguage] = useState("");
+
+  useEffect(() => {
+    setLanguage(i18next.language);
+  }, []);
 
   return (
     <FormControl sx={{ width: "100%", pl: 4, mt: 1 }}>
       <RadioGroup
         value={language}
         name="language-group"
-        onChange={event => setLanguage(event.target.value)}
+        onChange={event => {
+          const currentLang = event.target.value;
+          i18next
+            .changeLanguage(currentLang)
+            .then(() => setLanguage(currentLang))
+            .catch(() => setLanguage("en"));
+        }}
       >
         <FormControlLabel value="en" control={<Radio />} label="English" />
         <FormControlLabel value="ja" control={<Radio />} label="Japanese" />
