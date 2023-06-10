@@ -19,7 +19,9 @@ import ListItemText from "@mui/material/ListItemText";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import Typography from "@mui/material/Typography";
-import { JSX, useContext, useState } from "react";
+import i18next from "i18next";
+import { JSX, useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ColorModeContext } from "../../stores/ColorModeContext";
 
 const ListItemDrawer = ({
@@ -43,34 +45,54 @@ const ListItemDrawer = ({
 
 const DarkModePage = () => {
   const { setPaletteMode } = useContext(ColorModeContext);
+
   const theme = useTheme();
+  const { t } = useTranslation();
 
   return (
-    <FormControl sx={{ width: "100%", pl: 4, mt: 1 }}>
+    <FormControl sx={{ width: "100%", pl: 3.5, mt: 1 }}>
       <RadioGroup
         value={theme.palette.mode}
         name="color-scheme"
         onChange={event => setPaletteMode(event.target.value as PaletteMode)}
       >
-        <FormControlLabel value="light" control={<Radio />} label="Light" />
-        <FormControlLabel value="dark" control={<Radio />} label="Dark" />
+        <FormControlLabel
+          value="light"
+          control={<Radio />}
+          label={t("header.setting.darkmode.radio.light")}
+        />
+        <FormControlLabel
+          value="dark"
+          control={<Radio />}
+          label={t("header.setting.darkmode.radio.dark")}
+        />
       </RadioGroup>
     </FormControl>
   );
 };
 
 const TranslatePage = () => {
-  const [language, setLanguage] = useState("en");
+  const [language, setLanguage] = useState("");
+
+  useEffect(() => {
+    setLanguage(i18next.resolvedLanguage ?? "en");
+  }, []);
 
   return (
-    <FormControl sx={{ width: "100%", pl: 4, mt: 1 }}>
+    <FormControl sx={{ width: "100%", pl: 3.5, mt: 1 }}>
       <RadioGroup
         value={language}
         name="language-group"
-        onChange={event => setLanguage(event.target.value)}
+        onChange={event => {
+          const currentLang = event.target.value;
+          i18next
+            .changeLanguage(currentLang)
+            .then(() => setLanguage(currentLang))
+            .catch(() => setLanguage("en"));
+        }}
       >
         <FormControlLabel value="en" control={<Radio />} label="English" />
-        <FormControlLabel value="ja" control={<Radio />} label="Japanese" />
+        <FormControlLabel value="ja" control={<Radio />} label="日本語" />
       </RadioGroup>
     </FormControl>
   );
@@ -78,6 +100,8 @@ const TranslatePage = () => {
 
 const MainContent = () => {
   const [currentPage, setCurrentPage] = useState(0);
+
+  const { t } = useTranslation();
 
   // TODO: consider using slide
   const Page = ({ title, page }: { title: string; page: JSX.Element }) => {
@@ -96,20 +120,30 @@ const MainContent = () => {
   };
 
   if (currentPage == 1)
-    return <Page title="change color scheme" page={<DarkModePage />} />;
+    return (
+      <Page
+        title={t("header.setting.darkmode.title")}
+        page={<DarkModePage />}
+      />
+    );
   if (currentPage == 2)
-    return <Page title="select language" page={<TranslatePage />} />;
+    return (
+      <Page
+        title={t("header.setting.translate.title")}
+        page={<TranslatePage />}
+      />
+    );
   else
     return (
       <List>
         <ListItemDrawer
           icon={<InvertColorsIcon />}
-          text="dark mode"
+          text={t("header.setting.darkmode.item")}
           onClick={() => setCurrentPage(1)}
         />
         <ListItemDrawer
           icon={<TranslateIcon />}
-          text="translate"
+          text={t("header.setting.translate.item")}
           onClick={() => setCurrentPage(2)}
         />
       </List>
@@ -119,6 +153,8 @@ const MainContent = () => {
 export const SettingDrawer = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
+
+  const { t } = useTranslation();
 
   return (
     <>
@@ -139,7 +175,7 @@ export const SettingDrawer = () => {
       >
         <Box sx={{ textAlign: "center" }}>
           <Typography variant="h6" sx={{ my: 2 }}>
-            Settings
+            {t("header.setting.drawer.title")}
           </Typography>
 
           <Divider />

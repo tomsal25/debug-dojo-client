@@ -1,0 +1,78 @@
+{
+  "home": {
+    "title": {
+      "1": "My <Big>AI</Big> just wrote some source code.",
+      "2": "But they each include only <Big>one</Big> mistake.",
+      "3": "Can you <Big>debug</Big> it?"
+    },
+    "debugButton": "Try To Debug!"
+  },
+  "header": {
+    "menu": {
+      "title": "Menu",
+      "home": "Home",
+      "random": "Random Code"
+    },
+    "setting": {
+      "drawer": {
+        "title": "Settings"
+      },
+      "darkmode": {
+        "item": "dark mode",
+        "title": "change color scheme",
+        "radio": {
+          "light": "light",
+          "dark": "dark"
+        }
+      },
+      "translate": {
+        "item": "translate",
+        "title": "select language"
+      }
+    }
+  },
+  "code": {
+    "safemode": {
+      "title": "Safe Mode",
+      "warn": {
+        "title": "!!! WARNING !!!",
+        "text": "You can NOT use this feature because your browser does not support Web Worker."
+      },
+      "text": {
+        "1": "Safe Mode allows you to run your code safely.",
+        "2": "* You can avoid infinite loops."
+      }
+    },
+    "run": {
+      "button": "Run"
+    },
+    "result": {
+      "title": "Result",
+      "text": {
+        "test": "testing...",
+        "pass": "passed!",
+        "fail": "failed!",
+        "error": "Something went wrong. Please retry.",
+        "init": "init"
+      },
+      "button": {
+        "retry": "Retry",
+        "home": "Home",
+        "random": "Random"
+      },
+      "test": {
+        "button": "Check Test Code"
+      }
+    }
+  },
+  "neterror": {
+    "title": "Something went wrong.",
+    "text": "Please try again after a while.",
+    "button": "Go Home"
+  },
+  "404": {
+    "title": "404 Error!",
+    "text": "This page doesn't exist.",
+    "button": "Go Home"
+  }
+}

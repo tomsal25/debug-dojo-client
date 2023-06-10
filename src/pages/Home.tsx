@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Typography, { TypographyProps } from "@mui/material/Typography";
 import { SxProps, Theme } from "@mui/material/styles";
+import { Trans, useTranslation } from "react-i18next";
 import * as HrefList from "./HrefList";
 
 const commonFontSize: SxProps<Theme> = {
@@ -27,16 +28,18 @@ const Big = (props: TypographyProps) => (
 );
 
 export default function Home() {
+  const { t } = useTranslation();
+
   return (
     <Container sx={{ my: 2 }}>
       <StrongContext>
-        <Big>Our</Big> code is written by AI (and 1% of me).
+        <Trans i18nKey="home.title.1" components={{ Big: <Big /> }} />
       </StrongContext>
       <StrongContext>
-        But it includes <Big>one</Big> mistake.
+        <Trans i18nKey="home.title.2" components={{ Big: <Big /> }} />
       </StrongContext>
       <StrongContext>
-        Can you <Big>debug</Big> it?
+        <Trans i18nKey="home.title.3" components={{ Big: <Big /> }} />
       </StrongContext>
 
       <Box sx={{ mt: 3 }}>
@@ -49,7 +52,7 @@ export default function Home() {
           startIcon={<CasinoIcon />}
           sx={commonFontSize}
         >
-          Try To Debug
+          {t("home.debugButton")}
         </Button>
       </Box>
     </Container>
