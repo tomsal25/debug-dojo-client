@@ -78,10 +78,6 @@ const TranslatePage = () => {
     setLanguage(i18next.resolvedLanguage ?? "en");
   }, []);
 
-  useEffect(() => {
-    setLanguage(i18next.language);
-  }, []);
-
   return (
     <FormControl sx={{ width: "100%", pl: 3.5, mt: 1 }}>
       <RadioGroup
