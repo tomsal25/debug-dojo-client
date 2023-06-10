@@ -17,6 +17,7 @@ import Typography from "@mui/material/Typography";
 import { SxProps, Theme } from "@mui/material/styles";
 import { editor } from "monaco-editor";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import {
   Accordion,
@@ -71,10 +72,12 @@ const CodeDisplayModal = ({
 }) => {
   const [open, setOpen] = useState(false);
 
+  const { t } = useTranslation();
+
   return (
     <>
       <Button disabled={disabled} onClick={() => setOpen(true)}>
-        Check Test Code
+        {t("code.result.test.button")}
       </Button>
       <Modal open={open} onClose={() => setOpen(false)}>
         <Box sx={{ ...modalStyle, width: 400 }}>
@@ -115,8 +118,11 @@ const ResultModal = ({
   const open = result.type != 0;
   const isTesting = result.type == 1;
 
+  const { t } = useTranslation();
+
   const ResultText = () => {
-    if (result.type == 1) return <Typography>testing...</Typography>;
+    if (result.type == 1)
+      return <Typography>{t("code.result.text.test")}</Typography>;
     if (result.type == 2)
       return (
         <Box sx={{ display: "flex", justifyContent: "center", gap: 1 }}>
@@ -124,22 +130,26 @@ const ResultModal = ({
             // on success
             <>
               <CheckCircleIcon color="success" />
-              <Typography>passed!</Typography>
+              <Typography>{t("code.result.text.pass")}</Typography>
             </>
           ) : (
             // on failed
             <>
               <ErrorIcon color="error" />
-              <Typography>failed!</Typography>
+              <Typography>{t("code.result.text.fail")}</Typography>
             </>
           )}
         </Box>
       );
     // on error
     if (result.type == 3)
-      return <Typography>Something went wrong. Please retry.</Typography>;
+      return <Typography>{t("code.result.text.error")}</Typography>;
 
-    return <Typography sx={{ visibility: "hidden" }}>init</Typography>;
+    return (
+      <Typography sx={{ visibility: "hidden" }}>
+        {t("code.result.text.init")}
+      </Typography>
+    );
   };
 
   const TestCode = () => {
@@ -161,7 +171,7 @@ const ResultModal = ({
         >
           {/* title */}
           <Typography variant="h6" component="h2">
-            Result
+            {t("code.result.title")}
           </Typography>
           {/* result */}
           <Box sx={{ textAlign: "center" }}>
@@ -178,7 +188,7 @@ const ResultModal = ({
           >
             <LabeledButton
               icon={<ReplayIcon fontSize="large" />}
-              label="Retry"
+              label={t("code.result.button.retry")}
               color="#e55"
               disabled={isTesting}
               onClick={retry}
@@ -186,13 +196,13 @@ const ResultModal = ({
             />
             <LabeledButton
               icon={<HomeIcon />}
-              label="Home"
+              label={t("code.result.button.home")}
               disabled={isTesting}
               href={HrefList.home}
             />
             <LabeledButton
               icon={<CasinoIcon />}
-              label="Random"
+              label={t("code.result.button.random")}
               disabled={isTesting}
               href={HrefList.random}
             />
@@ -213,6 +223,8 @@ const Code = ({ rawData }: { rawData: API_DATA }) => {
   const [isUseWorker, setIsUseWorker] = useState(true);
 
   const editorRef = useRef<editor.IStandaloneCodeEditor>();
+
+  const { t } = useTranslation();
 
   const runCode = () => {
     const userCode = editorRef.current?.getValue();
@@ -260,7 +272,7 @@ const Code = ({ rawData }: { rawData: API_DATA }) => {
           defaultChecked={canUseWorker}
         />
 
-        <Typography sx={{ mr: 1 }}>Safe mode</Typography>
+        <Typography sx={{ mr: 1 }}>{t("code.safemode.title")}</Typography>
 
         <Tooltip
           title={
@@ -276,14 +288,15 @@ const Code = ({ rawData }: { rawData: API_DATA }) => {
                     background: "#eee",
                   }}
                 >
-                  !!! WARNING !!!
+                  {t("code.safemode.warn.title")}
                   <br />
-                  You can NOT use this feature because your browser does not
-                  support Web Worker.
+                  {t("code.safemode.warn.text")}
                 </Typography>
               )}
-              Safe Mode allows you to run your code safely.
-              <br />* You can avoid infinite loops.
+              {t("code.safemode.text.1")}
+              <br />
+              <br />
+              {t("code.safemode.text.2")}
             </>
           }
           enterTouchDelay={0}
@@ -320,7 +333,7 @@ const Code = ({ rawData }: { rawData: API_DATA }) => {
           }}
         >
           <PlayArrowIcon />
-          Run
+          {t("code.run.button")}
         </Fab>
       </Fade>
 
