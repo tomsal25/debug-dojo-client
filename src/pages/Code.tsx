@@ -5,9 +5,15 @@ import HelpIcon from "@mui/icons-material/Help";
 import HomeIcon from "@mui/icons-material/Home";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import ReplayIcon from "@mui/icons-material/Replay";
+import WarningIcon from "@mui/icons-material/Warning";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 import Fab from "@mui/material/Fab";
 import Fade from "@mui/material/Fade";
 import Modal from "@mui/material/Modal";
@@ -80,7 +86,7 @@ const CodeDisplayModal = ({
         {t("code.result.test.button")}
       </Button>
       <Modal open={open} onClose={() => setOpen(false)}>
-        <Box sx={{ ...modalStyle, width: 400 }}>
+        <Box sx={{ ...modalStyle, width: "80vw" }}>
           <Editor height="40vh" options={{ readOnly: true }} value={code} />
         </Box>
       </Modal>
@@ -217,10 +223,50 @@ const ResultModal = ({
   );
 };
 
+const UnsafeConfirm = ({
+  open,
+  onClose,
+  confirm,
+}: {
+  open: boolean;
+  onClose: () => void;
+  confirm: () => void;
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>
+        <Box sx={{ display: "flex", justifyContent: "center", gap: 1 }}>
+          <WarningIcon color="warning" />
+          <span>{t("code.unsafe.title")}</span>
+        </Box>
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText>{t("code.unsafe.text")} </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>{t("code.unsafe.no")}</Button>
+        <Button
+          autoFocus
+          onClick={() => {
+            confirm();
+            onClose();
+          }}
+        >
+          {t("code.unsafe.yes")}
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
 const Code = ({ rawData }: { rawData: API_DATA }) => {
   const [result, setResult] = useState<ResultData>({ type: 0 });
   const [isEditorLoaded, setIsEditorLoaded] = useState(false);
   const [isUseWorker, setIsUseWorker] = useState(true);
+  const [isAcceptUnsafe, setIsAcceptUnsafe] = useState(false);
+  const [openConfirm, setOpenConfirm] = useState(false);
 
   const editorRef = useRef<editor.IStandaloneCodeEditor>();
 
@@ -229,6 +275,8 @@ const Code = ({ rawData }: { rawData: API_DATA }) => {
   const runCode = () => {
     const userCode = editorRef.current?.getValue();
     if (!userCode) return;
+
+    if (!isUseWorker && !isAcceptUnsafe) return setOpenConfirm(true);
 
     setResult({ type: 1 });
 
@@ -337,7 +385,15 @@ const Code = ({ rawData }: { rawData: API_DATA }) => {
         </Fab>
       </Fade>
 
+      {/* result screen */}
       <ResultModal result={result} retry={() => setResult({ type: 0 })} />
+
+      {/* dialog for check if user accept unsafe run */}
+      <UnsafeConfirm
+        open={openConfirm}
+        onClose={() => setOpenConfirm(false)}
+        confirm={() => setIsAcceptUnsafe(true)}
+      />
     </Container>
   );
 };

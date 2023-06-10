@@ -63,6 +63,12 @@
       "test": {
         "button": "Check Test Code"
       }
+    },
+    "unsafe": {
+      "title": "Confirmation",
+      "text": "We can NOT guarantee that you can safely run your code without \"Safe Mode\". Do you really understand the risks and execute your code?",
+      "no": "No",
+      "yes": "Yes, I understood."
     }
   },
   "neterror": {
