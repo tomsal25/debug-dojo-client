@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:api": "netlify functions:serve",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
