@@ -26,10 +26,10 @@ export const getCode = async (id: number, signal?: AbortSignal) => {
     fetch(`${API_BASE_URL}/code?id=${id}`, { signal })
       .then(res => {
         if (!res.ok) {
-          if (res.status == 400) {
+          if (res.status == 404) {
             return reject(API_DATA_ERROR_STATUS.OUT);
           }
-          if (res.status == 404) {
+          if (res.status == 400) {
             return reject(API_DATA_ERROR_STATUS.INVALID);
           }
           return reject(API_DATA_ERROR_STATUS.OTHER);
@@ -47,10 +47,10 @@ export const getList = async (page: number, signal?: AbortSignal) => {
     fetch(`${API_BASE_URL}/list?p=${page}`, { signal })
       .then(res => {
         if (!res.ok) {
-          if (res.status == 400) {
+          if (res.status == 404) {
             return reject(API_DATA_ERROR_STATUS.OUT);
           }
-          if (res.status == 404) {
+          if (res.status == 400) {
             return reject(API_DATA_ERROR_STATUS.INVALID);
           }
           return reject(API_DATA_ERROR_STATUS.OTHER);

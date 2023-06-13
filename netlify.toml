@@ -6,3 +6,12 @@
 
 [functions]
   directory = "netlify/functions"
+
+[dev]
+  command = "npm run dev:app"
+
+# Required for react router.
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 200
