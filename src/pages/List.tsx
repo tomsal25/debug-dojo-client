@@ -7,7 +7,8 @@ import {
   AccordionDetails,
   AccordionSummary,
 } from "../components/Accordion";
-import { API_DATA, getList } from "../utils/getApiData";
+import { API_DATA } from "../const/api";
+import { getList } from "../utils/getApiData";
 import * as HrefList from "./HrefList";
 
 export default function List() {

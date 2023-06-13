@@ -33,7 +33,8 @@ import {
 import { Editor } from "../components/Editor";
 import { LabeledButton } from "../components/LabeledButton";
 import { Loading } from "../components/Loading";
-import { API_DATA, API_DATA_ERROR_STATUS, getCode } from "../utils/getApiData";
+import { API_DATA, API_DATA_ERROR_STATUS } from "../const/api";
+import { getCode } from "../utils/getApiData";
 import { testCode } from "../utils/testCode";
 import { isPositiveInteger } from "../utils/validator";
 import { canUseWorker } from "../utils/workerUtil";

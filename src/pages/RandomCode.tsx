@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "../components/Loading";
-import { API_DATA_ERROR_STATUS, getInfo } from "../utils/getApiData";
+import { API_DATA_ERROR_STATUS } from "../const/api";
+import { getInfo } from "../utils/getApiData";
 import * as HrefList from "./HrefList";
 import NetworkError from "./NetworkError";
 
