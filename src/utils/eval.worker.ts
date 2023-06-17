@@ -22,7 +22,8 @@ const testFunction = (sourceCode: string) => {
   }
 };
 
-self.addEventListener("message", (message: MessageEvent<string>) => {
-  self.postMessage(testFunction(message.data));
-  self.close();
+addEventListener("message", (message: MessageEvent<HostMessage>) => {
+  const { code, test } = message.data;
+  postMessage(testFunction(code, test) as WorkerMessage);
+  close();
 });
