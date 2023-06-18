@@ -17,11 +17,31 @@ interface CodeTimeout {
 
 export type CodeResponce = CodeJudge | CodeError | CodeTimeout;
 
-const testFunction = (sourceCode: string) => {
+export const testFunction = (sourceCode: string, testCode: string) => {
+  const randomId = `${Math.random()}`;
+  // remove trailing colon
+  testCode = `(()=>{return ${testCode}})()`;
+  const code = `${sourceCode};return[${testCode},"${randomId}"]`;
+
   try {
     // eslint-disable-next-line @typescript-eslint/no-implied-eval
-    const result = new Function(sourceCode)() as boolean;
-    return { type: "code", flag: result } as CodeJudge;
+    const result = new Function(code)() as unknown;
+
+    // check if the origin id is equal to returned one
+    if (
+      Array.isArray(result) &&
+      // expected return: [result: boolean, id: string]
+      typeof result[0] === "boolean" &&
+      randomId === result[1]
+    ) {
+      return { type: "code", flag: result[0] } as CodeJudge;
+    } else {
+      return {
+        type: "error",
+        name: "invalid input",
+        message: "",
+      } as CodeError;
+    }
   } catch (error) {
     if (error instanceof Error) {
       return {
@@ -46,13 +66,12 @@ export const testCode = async (
   timeLimit = 3000
 ): Promise<CodeResponce[]> => {
   const resultList = await Promise.all(
-    testCode.split("\n").map(async e => {
+    testCode.split("\n").map(async test => {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (useWorker && canUseWorker) {
-        // FIXME: if sourceCode is "return true;", any test will be passed.
-        return await limitedEval(sourceCode + ";return " + e, timeLimit);
+        return await limitedEval(sourceCode, test, timeLimit);
       } else {
-        return testFunction(sourceCode + ";return " + e);
+        return testFunction(sourceCode, test);
       }
     })
   );
