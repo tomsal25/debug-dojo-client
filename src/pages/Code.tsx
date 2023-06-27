@@ -34,6 +34,7 @@ import { Editor } from "../components/Editor";
 import { LabeledButton } from "../components/LabeledButton";
 import { Loading } from "../components/Loading";
 import { API_DATA, API_DATA_ERROR_STATUS } from "../const/api";
+import { defaultPageTitle } from "../const/title";
 import { getCode } from "../utils/getApiData";
 import { testCode } from "../utils/testCode";
 import { isPositiveInteger } from "../utils/validator";
@@ -42,7 +43,15 @@ import * as HrefList from "./HrefList";
 import NetworkError from "./NetworkError";
 import NotFound from "./NotFound";
 
-const CodeInfo = ({ id, info }: { id: number; info: string }) => {
+const CodeInfo = ({
+  id,
+  title,
+  info,
+}: {
+  id: number;
+  title: string;
+  info: string;
+}) => {
   const [testExpanded, setTestExpanded] = useState(false);
 
   return (
@@ -51,7 +60,12 @@ const CodeInfo = ({ id, info }: { id: number; info: string }) => {
       onChange={() => setTestExpanded(!testExpanded)}
       sx={{ mb: 1 }}
     >
-      <AccordionSummary>{`ID: ${id}`}</AccordionSummary>
+      <AccordionSummary>
+        <Box sx={{ display: "flex", gap: 2 }}>
+          <Typography>{`ID: ${id}`}</Typography>
+          <Typography sx={{ textDecoration: "underline" }}>{title}</Typography>
+        </Box>
+      </AccordionSummary>
       <AccordionDetails>{`summary: ${info}`}</AccordionDetails>
     </Accordion>
   );
@@ -273,6 +287,14 @@ const Code = ({ rawData }: { rawData: API_DATA }) => {
 
   const { t } = useTranslation();
 
+  useEffect(() => {
+    document.title = `${rawData.title} - ${defaultPageTitle}`;
+
+    return () => {
+      document.title = defaultPageTitle;
+    };
+  }, [rawData.title]);
+
   const runCode = () => {
     const userCode = editorRef.current?.getValue();
     if (!userCode) return;
@@ -366,7 +388,7 @@ const Code = ({ rawData }: { rawData: API_DATA }) => {
         value={rawData.code}
       />
 
-      <CodeInfo id={rawData.id} info={rawData.summary} />
+      <CodeInfo id={rawData.id} title={rawData.title} info={rawData.summary} />
 
       {/* run button */}
       <Fade in={isEditorLoaded}>
