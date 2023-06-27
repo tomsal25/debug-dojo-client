@@ -106,7 +106,7 @@ interface ResultTesting {
 interface ResultAnswer {
   type: 2;
   pass: boolean;
-  test: string;
+  test: string[];
 }
 
 interface ResultError {
@@ -162,7 +162,7 @@ const ResultModal = ({
   const TestCode = () => {
     if (result.type != 2) return <CodeDisplayModal code="" disabled />;
 
-    return <CodeDisplayModal code={result.test} />;
+    return <CodeDisplayModal code={result.test.join("\n")} />;
   };
 
   return (

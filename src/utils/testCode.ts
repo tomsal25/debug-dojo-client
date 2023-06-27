@@ -61,12 +61,12 @@ export const testFunction = (sourceCode: string, testCode: string) => {
 
 export const testCode = async (
   sourceCode: string,
-  testCode: string,
+  testCode: string[],
   useWorker = true,
   timeLimit = 3000
 ): Promise<CodeResponce[]> => {
   const resultList = await Promise.all(
-    testCode.split("\n").map(async test => {
+    testCode.map(async test => {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (useWorker && canUseWorker) {
         return await limitedEval(sourceCode, test, timeLimit);
