@@ -7,8 +7,10 @@ export interface API_INFO {
 export interface API_DATA {
   id: number;
   code: string;
-  test: string;
+  test: string[];
+  title: string;
   summary: string;
+  lang: string;
 }
 
 export const API_DATA_ERROR_STATUS = {

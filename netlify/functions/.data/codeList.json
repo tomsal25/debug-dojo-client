@@ -1,74 +1,572 @@
 [
   {
     "id": 1,
-    "code": "function sum(a, b) { return a - b; }",
-    "test": "sum(3, 2) === 5;\nsum(-3, 2) === -1;\nsum(-3, -2) === -5;\nsum(3, -2) === 1;\nsum(0, 0) === 0;\nsum(1.5, 2.5) === 4;\nsum('a', 'b') === 'ab';\nsum(true, false) === 1;\nsum(5, null) === 5;\nsum(undefined, 3) === undefined;",
-    "summary": "This function is supposed to return the sum of two numbers, but there is a mistake in the code."
+    "code": "function sum(a, b) {\n  return a - b;\n}",
+    "test": [
+      "sum(2, 3) === 5",
+      "sum(-4, 7) === 3",
+      "sum(0, 0) === 0",
+      "sum(10, -5) === 5",
+      "sum(100, 100) === 200",
+      "sum(-2, -3) === -5",
+      "sum(0, 5) === 5",
+      "sum(-7, -10) === -17",
+      "sum(25, 0) === 25",
+      "sum(0, -7) === -7"
+    ],
+    "title": "Simple Sum",
+    "summary": "This function is supposed to return the sum of two numbers, but there is a mistake in the code.",
+    "lang": "javascript"
   },
   {
     "id": 2,
-    "code": "function sum(a, b) { return a - b; }",
-    "test": "sum(3, 2) === 5;\nsum(-3, 2) === -1;\nsum(-3, -2) === -5;\nsum(3, -2) === 1;\nsum(0, 0) === 0;\nsum(1.5, 2.5) === 4;\nsum('a', 'b') === 'ab';\nsum(true, false) === 1;\nsum(5, null) === 5;\nsum(undefined, 3) === undefined;",
-    "summary": "This function is supposed to return the sum of two numbers, but there is a mistake in the code."
+    "code": "function sum(a, b) {\n  const total = a + b;\n  return total + 1;\n}",
+    "test": [
+      "sum(2, 3) === 5",
+      "sum(-4, 7) === 3",
+      "sum(0, 0) === 0",
+      "sum(10, -5) === 5",
+      "sum(100, 100) === 200",
+      "sum(-2, -3) === -5",
+      "sum(0, 5) === 5",
+      "sum(-7, -10) === -17",
+      "sum(25, 0) === 25",
+      "sum(0, -7) === -7"
+    ],
+    "title": "Simple Sum",
+    "summary": "This function is supposed to return the sum of two numbers, but there is a mistake in the code.",
+    "lang": "javascript"
   },
   {
     "id": 3,
-    "code": "function sum(a, b) { return a - b; }",
-    "test": "sum(3, 2) === 5;\nsum(-3, 2) === -1;\nsum(-3, -2) === -5;\nsum(3, -2) === 1;\nsum(0, 0) === 0;\nsum(1.5, 2.5) === 4;\nsum('a', 'b') === 'ab';\nsum(true, false) === 1;\nsum(5, null) === 5;\nsum(undefined, 3) === undefined;",
-    "summary": "This function is supposed to return the sum of two numbers, but there is a mistake in the code."
+    "code": "function sum(a, b) {\n  const total = a + b;\n  return total + 2;\n}",
+    "test": [
+      "sum(2, 3) === 5",
+      "sum(-4, 7) === 3",
+      "sum(0, 0) === 0",
+      "sum(10, -5) === 5",
+      "sum(100, 100) === 200",
+      "sum(-2, -3) === -5",
+      "sum(0, 5) === 5",
+      "sum(-7, -10) === -17",
+      "sum(25, 0) === 25",
+      "sum(0, -7) === -7"
+    ],
+    "title": "Simple Sum",
+    "summary": "This function is supposed to return the sum of two numbers, but there is a mistake in the code.",
+    "lang": "javascript"
   },
   {
     "id": 4,
-    "code": "function greet(name) { return 'Hello, ' + name }",
-    "test": "greet('Alice') === 'Hello, Alice';\ngreet('Bob') === 'Hello, Bob';\ngreet('') === 'Hello, ';\ngreet(null) === 'Hello, null';\ngreet(undefined) === 'Hello, undefined';\ngreet(123) === 'Hello, 123';\ngreet(true) === 'Hello, true';\ngreet({ name: 'Alice' }) === 'Hello, [object Object]';\ngreet([ 'Alice', 'Bob' ]) === 'Hello, Alice,Bob';\ngreet(() => {}) === 'Hello, () => {}';",
-    "summary": "This function is supposed to return a greeting message to a given name, but there is a mistake in the code."
+    "code": "function sum(a, b) {\n  const total = a + b;\n  return total + 3;\n}",
+    "test": [
+      "sum(2, 3) === 5",
+      "sum(-4, 7) === 3",
+      "sum(0, 0) === 0",
+      "sum(10, -5) === 5",
+      "sum(100, 100) === 200",
+      "sum(-2, -3) === -5",
+      "sum(0, 5) === 5",
+      "sum(-7, -10) === -17",
+      "sum(25, 0) === 25",
+      "sum(0, -7) === -7"
+    ],
+    "title": "Simple Sum",
+    "summary": "This function is supposed to return the sum of two numbers, but there is a mistake in the code.",
+    "lang": "javascript"
   },
   {
     "id": 5,
-    "code": "function greet(name) { return 'Hello, ' + name }",
-    "test": "greet('Alice') === 'Hello, Alice';\ngreet('Bob') === 'Hello, Bob';\ngreet('') === 'Hello, ';\ngreet(null) === 'Hello, null';\ngreet(undefined) === 'Hello, undefined';\ngreet(123) === 'Hello, 123';\ngreet(true) === 'Hello, true';\ngreet({ name: 'Alice' }) === 'Hello, [object Object]';\ngreet([ 'Alice', 'Bob' ]) === 'Hello, Alice,Bob';\ngreet(() => {}) === 'Hello, () => {}';",
-    "summary": "This function is supposed to return a greeting message to a given name, but there is a mistake in the code."
+    "code": "function multiply(a, b) {\n  return a + b;\n}",
+    "test": [
+      "multiply(2, 3) === 6",
+      "multiply(4, 5) === 20",
+      "multiply(0, 7) === 0",
+      "multiply(-2, 8) === -16",
+      "multiply(3, -4) === -12",
+      "multiply(6, 0.5) === 3",
+      "multiply(2.5, 4) === 10",
+      "multiply(10, 0) === 0",
+      "multiply(1, 1) === 1",
+      "multiply(-3, -2) === 6"
+    ],
+    "title": "Multiply Function",
+    "summary": "This function is supposed to multiply two numbers, but it's not working as intended.",
+    "lang": "javascript"
   },
   {
     "id": 6,
-    "code": "function greet(name) { return 'Hello, ' + name }",
-    "test": "greet('Alice') === 'Hello, Alice';\ngreet('Bob') === 'Hello, Bob';\ngreet('') === 'Hello, ';\ngreet(null) === 'Hello, null';\ngreet(undefined) === 'Hello, undefined';\ngreet(123) === 'Hello, 123';\ngreet(true) === 'Hello, true';\ngreet({ name: 'Alice' }) === 'Hello, [object Object]';\ngreet([ 'Alice', 'Bob' ]) === 'Hello, Alice,Bob';\ngreet(() => {}) === 'Hello, () => {}';",
-    "summary": "This function is supposed to return a greeting message to a given name, but there is a mistake in the code."
+    "code": "function doubleArray(arr) {\n  for (let i = 1; i < arr.length; i++) {\n    arr[i] = arr[i] * 2;\n  }\n\n  return arr;\n}",
+    "test": [
+      "JSON.stringify(doubleArray([0, 0, 0, 0])) === JSON.stringify([0, 0, 0, 0])",
+      "JSON.stringify(doubleArray([1, 2, 3, 4])) === JSON.stringify([2, 4, 6, 8])",
+      "JSON.stringify(doubleArray([5])) === JSON.stringify([10])",
+      "JSON.stringify(doubleArray([])) === JSON.stringify([])",
+      "JSON.stringify(doubleArray([-1, -2, -3, -4])) === JSON.stringify([-2, -4, -6, -8])",
+      "JSON.stringify(doubleArray([1.5, 2.5, 3.5])) === JSON.stringify([3, 5, 7])",
+      "JSON.stringify(doubleArray([1, 0, 3])) === JSON.stringify([2, 0, 6])",
+      "JSON.stringify(doubleArray([1, 0, -1])) === JSON.stringify([2, 0, -2])",
+      "JSON.stringify(doubleArray([undefined, 3, 5])) === JSON.stringify([NaN, 6, 10])",
+      "JSON.stringify(doubleArray([Infinity, -Infinity])) === JSON.stringify([Infinity, -Infinity])"
+    ],
+    "title": "Double Array",
+    "summary": "This function takes an array and returns a new array with each element of the original array doubled.",
+    "lang": "javascript"
   },
   {
     "id": 7,
-    "code": "function isPalindrome(str) { \n  let reversedStr = ''; \n  for (let i = str.length - 1; i >= 0; i--) { \n    reversedStr += str[i]; \n  } \n  return reversedStr === str; \n}",
-    "test": "isPalindrome('racecar') === true;\nisPalindrome('hello') === false;\nisPalindrome('') === true;\nisPalindrome('12321') === true;\nisPalindrome('abba') === true;\nisPalindrome('1234') === false;\nisPalindrome('A man a plan a canal Panama') === true;\nisPalindrome('Was it a car or a cat I saw') === true;\nisPalindrome('No lemon, no melon') === true;\nisPalindrome('Eva, can I see bees in a cave?') === true;",
-    "summary": "This function is supposed to check if a given string is a palindrome (i.e., reads the same backward as forward), but there is a mistake in the code."
+    "code": "function doubleArray(arr) {\n  for (let i = 0; i < arr.length; i++) {\n    arr[i] = arr[i] * 3;\n  }\n\n  return arr;\n}",
+    "test": [
+      "JSON.stringify(doubleArray([0, 0, 0, 0])) === JSON.stringify([0, 0, 0, 0])",
+      "JSON.stringify(doubleArray([1, 2, 3, 4])) === JSON.stringify([2, 4, 6, 8])",
+      "JSON.stringify(doubleArray([5])) === JSON.stringify([10])",
+      "JSON.stringify(doubleArray([])) === JSON.stringify([])",
+      "JSON.stringify(doubleArray([-1, -2, -3, -4])) === JSON.stringify([-2, -4, -6, -8])",
+      "JSON.stringify(doubleArray([1.5, 2.5, 3.5])) === JSON.stringify([3, 5, 7])",
+      "JSON.stringify(doubleArray([1, 0, 3])) === JSON.stringify([2, 0, 6])",
+      "JSON.stringify(doubleArray([1, 0, -1])) === JSON.stringify([2, 0, -2])",
+      "JSON.stringify(doubleArray([undefined, 3, 5])) === JSON.stringify([NaN, 6, 10])",
+      "JSON.stringify(doubleArray([Infinity, -Infinity])) === JSON.stringify([Infinity, -Infinity])"
+    ],
+    "title": "Double Array",
+    "summary": "This function takes an array and returns a new array with each element of the original array doubled.",
+    "lang": "javascript"
   },
   {
     "id": 8,
-    "code": "function isPalindrome(str) { \n  let reversedStr = ''; \n  for (let i = str.length - 1; i >= 0; i--) { \n    reversedStr += str[i]; \n  } \n  return reversedStr === str; \n}",
-    "test": "isPalindrome('racecar') === true;\nisPalindrome('hello') === false;\nisPalindrome('') === true;\nisPalindrome('12321') === true;\nisPalindrome('abba') === true;\nisPalindrome('1234') === false;\nisPalindrome('A man a plan a canal Panama') === true;\nisPalindrome('Was it a car or a cat I saw') === true;\nisPalindrome('No lemon, no melon') === true;\nisPalindrome('Eva, can I see bees in a cave?') === true;",
-    "summary": "This function is supposed to check if a given string is a palindrome (i.e., reads the same backward as forward), but there is a mistake in the code."
+    "code": "function doubleArray(arr) {\n  for (let i = 0; i < arr.length; i++) {\n    arr[i] = arr[i] * 4;\n  }\n\n  return arr;\n}",
+    "test": [
+      "JSON.stringify(doubleArray([0, 0, 0, 0])) === JSON.stringify([0, 0, 0, 0])",
+      "JSON.stringify(doubleArray([1, 2, 3, 4])) === JSON.stringify([2, 4, 6, 8])",
+      "JSON.stringify(doubleArray([5])) === JSON.stringify([10])",
+      "JSON.stringify(doubleArray([])) === JSON.stringify([])",
+      "JSON.stringify(doubleArray([-1, -2, -3, -4])) === JSON.stringify([-2, -4, -6, -8])",
+      "JSON.stringify(doubleArray([1.5, 2.5, 3.5])) === JSON.stringify([3, 5, 7])",
+      "JSON.stringify(doubleArray([1, 0, 3])) === JSON.stringify([2, 0, 6])",
+      "JSON.stringify(doubleArray([1, 0, -1])) === JSON.stringify([2, 0, -2])",
+      "JSON.stringify(doubleArray([undefined, 3, 5])) === JSON.stringify([NaN, 6, 10])",
+      "JSON.stringify(doubleArray([Infinity, -Infinity])) === JSON.stringify([Infinity, -Infinity])"
+    ],
+    "title": "Double Array",
+    "summary": "This function takes an array and returns a new array with each element of the original array doubled.",
+    "lang": "javascript"
   },
   {
     "id": 9,
-    "code": "function isPalindrome(str) { \n  let reversedStr = ''; \n  for (let i = str.length - 1; i >= 0; i--) { \n    reversedStr += str[i]; \n  } \n  return reversedStr === str; \n}",
-    "test": "isPalindrome('racecar') === true;\nisPalindrome('hello') === false;\nisPalindrome('') === true;\nisPalindrome('12321') === true;\nisPalindrome('abba') === true;\nisPalindrome('1234') === false;\nisPalindrome('A man a plan a canal Panama') === true;\nisPalindrome('Was it a car or a cat I saw') === true;\nisPalindrome('No lemon, no melon') === true;\nisPalindrome('Eva, can I see bees in a cave?') === true;",
-    "summary": "This function is supposed to check if a given string is a palindrome (i.e., reads the same backward as forward), but there is a mistake in the code."
+    "code": "function doubleArray(arr) {\n  for (let i = 0; i < arr.length; i++) {\n    arr[i] = arr[i] * 5;\n  }\n\n  return arr;\n}",
+    "test": [
+      "JSON.stringify(doubleArray([0, 0, 0, 0])) === JSON.stringify([0, 0, 0, 0])",
+      "JSON.stringify(doubleArray([1, 2, 3, 4])) === JSON.stringify([2, 4, 6, 8])",
+      "JSON.stringify(doubleArray([5])) === JSON.stringify([10])",
+      "JSON.stringify(doubleArray([])) === JSON.stringify([])",
+      "JSON.stringify(doubleArray([-1, -2, -3, -4])) === JSON.stringify([-2, -4, -6, -8])",
+      "JSON.stringify(doubleArray([1.5, 2.5, 3.5])) === JSON.stringify([3, 5, 7])",
+      "JSON.stringify(doubleArray([1, 0, 3])) === JSON.stringify([2, 0, 6])",
+      "JSON.stringify(doubleArray([1, 0, -1])) === JSON.stringify([2, 0, -2])",
+      "JSON.stringify(doubleArray([undefined, 3, 5])) === JSON.stringify([NaN, 6, 10])",
+      "JSON.stringify(doubleArray([Infinity, -Infinity])) === JSON.stringify([Infinity, -Infinity])"
+    ],
+    "title": "Double Array",
+    "summary": "This function takes an array and returns a new array with each element of the original array doubled.",
+    "lang": "javascript"
   },
   {
     "id": 10,
-    "code": "function factorial(n) { \n  if (n === 0) { \n    return 1; \n  } \n  else { \n    return n * factorial(n - 1); \n  } \n}",
-    "test": "factorial(0) === 1;\nfactorial(1) === 1;\nfactorial(2) === 2;\nfactorial(3) === 6;\nfactorial(4) === 24;\nfactorial(5) === 120;\nfactorial(6) === 720;\nfactorial(7) === 5040;\nfactorial(8) === 40320;\nfactorial(9) === 362880;",
-    "summary": "This function is supposed to compute the factorial of a given number (i.e., the product of all positive integers up to the given number), but there is a mistake in the code."
+    "code": "function countVowels(str) {\n  let count = 1;\n  for (let i = 0; i < str.length; i++) {\n    if (\n      str[i] === \"a\" ||\n      str[i] === \"e\" ||\n      str[i] === \"i\" ||\n      str[i] === \"o\" ||\n      str[i] === \"u\"\n    ) {\n      count++;\n    }\n  }\n\n  return count;\n}",
+    "test": [
+      "countVowels('hello') === 2",
+      "countVowels('world') === 1",
+      "countVowels('javascript') === 3",
+      "countVowels('programming') === 3",
+      "countVowels('debugging') === 3",
+      "countVowels('algorithm') === 3",
+      "countVowels('computer') === 3",
+      "countVowels('science') === 3",
+      "countVowels('developer') === 4",
+      "countVowels('software') === 3"
+    ],
+    "title": "Count Vowels",
+    "summary": "A function that counts the number of vowels in a given string.",
+    "lang": "javascript"
   },
   {
     "id": 11,
-    "code": "function factorial(n) { \n  if (n === 0) { \n    return 1; \n  } \n  else { \n    return n * factorial(n - 1); \n  } \n}",
-    "test": "factorial(0) === 1;\nfactorial(1) === 1;\nfactorial(2) === 2;\nfactorial(3) === 6;\nfactorial(4) === 24;\nfactorial(5) === 120;\nfactorial(6) === 720;\nfactorial(7) === 5040;\nfactorial(8) === 40320;\nfactorial(9) === 362880;",
-    "summary": "This function is supposed to compute the factorial of a given number (i.e., the product of all positive integers up to the given number), but there is a mistake in the code."
+    "code": "function countVowels(str) {\n  let count = 0;\n  for (let i = 0; i < str.length; i++) {\n    if (\n      str[i] === \"a\" &&\n      str[i] === \"e\" &&\n      str[i] === \"i\" &&\n      str[i] === \"o\" &&\n      str[i] === \"u\"\n    ) {\n      count++;\n    }\n  }\n\n  return count;\n}",
+    "test": [
+      "countVowels('hello') === 2",
+      "countVowels('world') === 1",
+      "countVowels('javascript') === 3",
+      "countVowels('programming') === 3",
+      "countVowels('debugging') === 3",
+      "countVowels('algorithm') === 3",
+      "countVowels('computer') === 3",
+      "countVowels('science') === 3",
+      "countVowels('developer') === 4",
+      "countVowels('software') === 3"
+    ],
+    "title": "Count Vowels",
+    "summary": "A function that counts the number of vowels in a given string.",
+    "lang": "javascript"
   },
   {
     "id": 12,
-    "code": "function factorial(n) { \n  if (n === 0) { \n    return 1; \n  } \n  else { \n    return n * factorial(n - 1); \n  } \n}",
-    "test": "factorial(0) === 1;\nfactorial(1) === 1;\nfactorial(2) === 2;\nfactorial(3) === 6;\nfactorial(4) === 24;\nfactorial(5) === 120;\nfactorial(6) === 720;\nfactorial(7) === 5040;\nfactorial(8) === 40320;\nfactorial(9) === 362880;",
-    "summary": "This function is supposed to compute the factorial of a given number (i.e., the product of all positive integers up to the given number), but there is a mistake in the code."
+    "code": "function countVowels(str) {\n  let count = 0;\n  for (let i = 0; i < str.length; i++) {\n    if (\n      str[i] === \"a\" |\n      str[i] === \"e\" |\n      str[i] === \"i\" |\n      str[i] === \"o\" |\n      str[i] === \"u\"\n    ) {\n      count++;\n    }\n  }\n\n  return count;\n}",
+    "test": [
+      "countVowels('hello') === 2",
+      "countVowels('world') === 1",
+      "countVowels('javascript') === 3",
+      "countVowels('programming') === 3",
+      "countVowels('debugging') === 3",
+      "countVowels('algorithm') === 3",
+      "countVowels('computer') === 3",
+      "countVowels('science') === 3",
+      "countVowels('developer') === 4",
+      "countVowels('software') === 3"
+    ],
+    "title": "Count Vowels",
+    "summary": "A function that counts the number of vowels in a given string.",
+    "lang": "javascript"
+  },
+  {
+    "id": 13,
+    "code": "function reverseString(str) {\n  let newStr = \"\";\n  for (let i = str.length - 1; i > 0; i--) {\n    newStr += str[i];\n  }\n\n  return newStr;\n}",
+    "test": [
+      "reverseString('hello') === 'olleh'",
+      "reverseString('world') === 'dlrow'",
+      "reverseString('12345') === '54321'",
+      "reverseString('') === ''",
+      "reverseString('h') === 'h'",
+      "reverseString('he') === 'eh'",
+      "reverseString('he llo') === 'oll eh'",
+      "reverseString('1234 567') === '765 4321'",
+      "reverseString('aabbcc') === 'ccbbaa'",
+      "reverseString('reverseString') === 'gnirtSesrever'"
+    ],
+    "title": "Reverse String",
+    "summary": "This function reverses a given string.",
+    "lang": "javascript"
+  },
+  {
+    "id": 14,
+    "code": "function reverseString(str) {\n  let newStr = \"\";\n  for (let i = str.length; i >= 0; i--) {\n    newStr += str[i];\n  }\n\n  return newStr;\n}",
+    "test": [
+      "reverseString('hello') === 'olleh'",
+      "reverseString('world') === 'dlrow'",
+      "reverseString('12345') === '54321'",
+      "reverseString('') === ''",
+      "reverseString('h') === 'h'",
+      "reverseString('he') === 'eh'",
+      "reverseString('he llo') === 'oll eh'",
+      "reverseString('1234 567') === '765 4321'",
+      "reverseString('aabbcc') === 'ccbbaa'",
+      "reverseString('reverseString') === 'gnirtSesrever'"
+    ],
+    "title": "Reverse String",
+    "summary": "This function reverses a given string.",
+    "lang": "javascript"
+  },
+  {
+    "id": 15,
+    "code": "function calculator(num1, num2, operator) {\n  let result;\n  switch (operator) {\n    case \"+\":\n      result = num1 + num2;\n    case \"-\":\n      result = num1 - num2;\n    case \"*\":\n      result = num1 * num2;\n    case \"/\":\n      result = num1 / num2;\n    default:\n      result = \"Invalid operator\";\n  }\n\n  return result;\n}",
+    "test": [
+      "calculator(2, 3, '+') === 5",
+      "calculator(10, 5, '-') === 5",
+      "calculator(4, 6, '*') === 24",
+      "calculator(8, 2, '/') === 4",
+      "calculator(5, 2, '+') === 7",
+      "calculator(7, 3, '-') === 4",
+      "calculator(3, 5, '*') === 15",
+      "calculator(10, 5, '/') === 2",
+      "calculator(1, 2, '+') === 3",
+      "calculator(9, 4, '-') === 5"
+    ],
+    "title": "Simple Calculator",
+    "summary": "A basic calculator function that takes two numbers and performs addition, subtraction, multiplication, and division based on a given operator.",
+    "lang": "javascript"
+  },
+  {
+    "id": 16,
+    "code": "function sumArray(arr) {\n  let sum = 0;\n  for (let i = 0; i <= arr.length; i++) {\n    sum += arr[i];\n  }\n\n  return sum;\n}",
+    "test": [
+      "sumArray([1, 2, 3]) === 6",
+      "sumArray([4, 5, 6]) === 15",
+      "sumArray([-1, 0, 1]) === 0",
+      "sumArray([10, 20, 30]) === 60",
+      "sumArray([2, 4, 6]) === 12",
+      "sumArray([1, 3, 5]) === 9",
+      "sumArray([0, 0, 0]) === 0",
+      "sumArray([1, 1, 1, 1, 1, 1, 1, 1, 1, 1]) === 10",
+      "sumArray([-5, -5, 10]) === 0",
+      "sumArray([2.5, 3.5, 4.5]) === 10.5"
+    ],
+    "title": "Sum Array",
+    "summary": "A function that takes an array of numbers and returns the sum of all the numbers in the array.",
+    "lang": "javascript"
+  },
+  {
+    "id": 17,
+    "code": "function sumArray(arr) {\n  let sum = \"0\";\n  for (let i = 0; i < arr.length; i++) {\n    sum += arr[i];\n  }\n\n  return sum;\n}",
+    "test": [
+      "sumArray([1, 2, 3]) === 6",
+      "sumArray([4, 5, 6]) === 15",
+      "sumArray([-1, 0, 1]) === 0",
+      "sumArray([10, 20, 30]) === 60",
+      "sumArray([2, 4, 6]) === 12",
+      "sumArray([1, 3, 5]) === 9",
+      "sumArray([0, 0, 0]) === 0",
+      "sumArray([1, 1, 1, 1, 1, 1, 1, 1, 1, 1]) === 10",
+      "sumArray([-5, -5, 10]) === 0",
+      "sumArray([2.5, 3.5, 4.5]) === 10.5"
+    ],
+    "title": "Sum Array",
+    "summary": "A function that takes an array of numbers and returns the sum of all the numbers in the array.",
+    "lang": "javascript"
+  },
+  {
+    "id": 18,
+    "code": "function isPalindrome(str) {\n  // remove unnecessary symbols\n  str = str.toLowerCase().replace(/[,'!?\\s]+/g, '')\n  let reversedStr = str.split('').reverse();\n\n  return reversedStr === str;\n}",
+    "test": [
+      "isPalindrome('racecar') === true",
+      "isPalindrome('hello') === false",
+      "isPalindrome('') === true",
+      "isPalindrome('Thank you') === false",
+      "isPalindrome('Was it a car or a cat I saw?') === true",
+      "isPalindrome('No lemon, on melon') === false",
+      "isPalindrome('Eva, can I see bees in a cave?') === true",
+      "isPalindrome('Do geese see God?') === true",
+      "isPalindrome('Red roses run no risks, sir, on Nurse\\'s order') === false",
+      "isPalindrome('Madam, in Eden, I\\'m Adam') === true"
+    ],
+    "title": "Sum Array",
+    "summary": "A function that takes an array of numbers and returns the sum of all the numbers in the array.",
+    "lang": "javascript"
+  },
+  {
+    "id": 19,
+    "code": "function getAverage(numbers) {\n  var sum = 0;\n  for (var i = 0; i < numbers.length; i++) {\n    sum += numbers[i];\n  }\n  var average = sum * numbers.length;\n\n  return average;\n}",
+    "test": [
+      "getAverage([1, 2, 3, 4, 5]) === 3",
+      "getAverage([10, 20, 30]) === 20",
+      "getAverage([2, 4, 6, 7]) === 4.75",
+      "getAverage([100, 200, 300, 400]) === 250",
+      "getAverage([-10, 0, 10]) === 0",
+      "getAverage([1]) === 1",
+      "getAverage([0, 0, 0, 0, 0, 6]) === 1",
+      "getAverage([2, -4, 6, -8]) === -1",
+      "getAverage([2, 3, 5, 7, 11]) === 5.6",
+      "getAverage([2, 2, 2, 2]) === 2"
+    ],
+    "title": "Average of numbers",
+    "summary": "Function to calculate the average value of numbers in an array",
+    "lang": "javascript"
+  },
+  {
+    "id": 20,
+    "code": "function findMax(arr) {\n  let max = 0;\n  for (let i = 0; i < arr.length; i++) {\n    if (arr[i] > max) {\n      max = arr[i];\n    }\n  }\n\n  return max;\n}",
+    "test": [
+      "findMax([1, 2, 3, 4, 5]) === 5",
+      "findMax([10, 20, 30]) === 30",
+      "findMax([5, 4, 3, 2, 1]) === 5",
+      "findMax([0, 0, 0, 0, 0]) === 0",
+      "findMax([-1, -2, -3, -4, -5]) === -1",
+      "findMax([2, 2, 2, 2, 2, 2, 2]) === 2",
+      "findMax([4, 6, 8, 2, 1]) === 8",
+      "findMax([5, 5, 5, 5, 5]) === 5",
+      "findMax([-2, -2, -2, -2, -2]) === -2",
+      "findMax([100, 200, 300, 400, 500]) === 500"
+    ],
+    "title": "Find Max",
+    "summary": "Function to find the maximum value in an array.",
+    "lang": "javascript"
+  },
+  {
+    "id": 21,
+    "code": "function capitalize(word) {\n  return word[0].toUpperCase() + word.slice(2);\n}",
+    "test": [
+      "capitalize('hello') === 'Hello'",
+      "capitalize('world') === 'World'",
+      "capitalize('javascript') === 'Javascript'",
+      "capitalize('programming') === 'Programming'",
+      "capitalize('debugging') === 'Debugging'",
+      "capitalize('testing') === 'Testing'",
+      "capitalize('code') === 'Code'",
+      "capitalize('challenge') === 'Challenge'",
+      "capitalize('developer') === 'Developer'",
+      "capitalize('programmer') === 'Programmer'"
+    ],
+    "title": "Capitalize",
+    "summary": "This function capitalizes the first letter of a given word.",
+    "lang": "javascript"
+  },
+  {
+    "id": 22,
+    "code": "function calculateArea(radius) {\n  return Math.PI * radius * 1;\n}",
+    "test": [
+      "calculateArea(0) === 0",
+      "calculateArea(1) === Math.PI * 1 ** 2",
+      "calculateArea(2) === Math.PI * 2 ** 2",
+      "calculateArea(2.5) === Math.PI * 2.5 ** 2",
+      "calculateArea(3) === Math.PI * 3 ** 2",
+      "calculateArea(4) === Math.PI * 4 ** 2",
+      "calculateArea(5) === Math.PI * 5 ** 2",
+      "calculateArea(6) === Math.PI * 6 ** 2",
+      "calculateArea(7) === Math.PI * 7 ** 2",
+      "calculateArea(10) === Math.PI * 10 ** 2"
+    ],
+    "title": "Circle Area",
+    "summary": "This function calculates the area of a circle given the radius.",
+    "lang": "javascript"
+  },
+  {
+    "id": 23,
+    "code": "function calculateArea(radius) {\n  return Math.PI * radius * 2;\n}",
+    "test": [
+      "calculateArea(0) === 0",
+      "calculateArea(1) === Math.PI * 1 ** 2",
+      "calculateArea(2) === Math.PI * 2 ** 2",
+      "calculateArea(2.5) === Math.PI * 2.5 ** 2",
+      "calculateArea(3) === Math.PI * 3 ** 2",
+      "calculateArea(4) === Math.PI * 4 ** 2",
+      "calculateArea(5) === Math.PI * 5 ** 2",
+      "calculateArea(6) === Math.PI * 6 ** 2",
+      "calculateArea(7) === Math.PI * 7 ** 2",
+      "calculateArea(10) === Math.PI * 10 ** 2"
+    ],
+    "title": "Circle Area",
+    "summary": "This function calculates the area of a circle given the radius.",
+    "lang": "javascript"
+  },
+  {
+    "id": 24,
+    "code": "function calculateArea(radius) {\n  return Math.PI * radius * 3;\n}",
+    "test": [
+      "calculateArea(0) === 0",
+      "calculateArea(1) === Math.PI * 1 ** 2",
+      "calculateArea(2) === Math.PI * 2 ** 2",
+      "calculateArea(2.5) === Math.PI * 2.5 ** 2",
+      "calculateArea(3) === Math.PI * 3 ** 2",
+      "calculateArea(4) === Math.PI * 4 ** 2",
+      "calculateArea(5) === Math.PI * 5 ** 2",
+      "calculateArea(6) === Math.PI * 6 ** 2",
+      "calculateArea(7) === Math.PI * 7 ** 2",
+      "calculateArea(10) === Math.PI * 10 ** 2"
+    ],
+    "title": "Circle Area",
+    "summary": "This function calculates the area of a circle given the radius.",
+    "lang": "javascript"
+  },
+  {
+    "id": 25,
+    "code": "function countChars(str) {\n  let count = 0;\n  for (let i = 0; i < str.length; i++) {\n    if (str[count] === 'a') {\n      count++;\n    }\n  }\n\n  return count;\n}",
+    "test": [
+      "countChars('apple') === 1",
+      "countChars('banana') === 3",
+      "countChars('strawberry') === 1",
+      "countChars('orange') === 1",
+      "countChars('apricot') === 1",
+      "countChars('kiwi') === 0",
+      "countChars('avocado') === 2",
+      "countChars('papaya') === 3",
+      "countChars('peach') === 1",
+      "countChars('grapefruit') === 1"
+    ],
+    "title": "Count Chars",
+    "summary": "A function that counts the number of times the character 'a' appears in a string.",
+    "lang": "javascript"
+  },
+  {
+    "id": 26,
+    "code": "function isEven(num) {\n  return num / 2 === 0;\n}",
+    "test": [
+      "isEven(4) === true",
+      "isEven(7) === false",
+      "isEven(0) === true",
+      "isEven(-2) === true",
+      "isEven(-7) === false",
+      "isEven(13) === false",
+      "isEven(256) === true",
+      "isEven(511) === false",
+      "isEven(1000) === true",
+      "isEven(-100) === true"
+    ],
+    "title": "Square function",
+    "summary": "Calculate the square of a number",
+    "lang": "javascript"
+  },
+  {
+    "id": 27,
+    "code": "function isEven(num) {\n  return num % 1 === 0;\n}",
+    "test": [
+      "isEven(4) === true",
+      "isEven(7) === false",
+      "isEven(0) === true",
+      "isEven(-2) === true",
+      "isEven(-7) === false",
+      "isEven(13) === false",
+      "isEven(256) === true",
+      "isEven(511) === false",
+      "isEven(1000) === true",
+      "isEven(-100) === true"
+    ],
+    "title": "Square function",
+    "summary": "Calculate the square of a number",
+    "lang": "javascript"
+  },
+  {
+    "id": 28,
+    "code": "function isEven(num) {\n  return num % 2 === 0;\n}",
+    "test": [
+      "isEven(4) === true",
+      "isEven(7) === false",
+      "isEven(0) === true",
+      "isEven(-2) === true",
+      "isEven(-7) === false",
+      "isEven(13) === false",
+      "isEven(256) === true",
+      "isEven(511) === false",
+      "isEven(1000) === true",
+      "isEven(-100) === true"
+    ],
+    "title": "Square function",
+    "summary": "Calculate the square of a number",
+    "lang": "javascript"
+  },
+  {
+    "id": 29,
+    "code": "function isEven(num) {\n  return num % 3 === 0;\n}",
+    "test": [
+      "isEven(4) === true",
+      "isEven(7) === false",
+      "isEven(0) === true",
+      "isEven(-2) === true",
+      "isEven(-7) === false",
+      "isEven(13) === false",
+      "isEven(256) === true",
+      "isEven(511) === false",
+      "isEven(1000) === true",
+      "isEven(-100) === true"
+    ],
+    "title": "Square function",
+    "summary": "Calculate the square of a number",
+    "lang": "javascript"
+  },
+  {
+    "id": 30,
+    "code": "function uniqueArray(arr) {\n    let unique = [];\n    for (let i = 0; i < arr.length; i++) {\n        if (unique.indexOf(arr[i]) !== -1) {\n            unique.push(arr[i]);\n        }\n    }\n    return unique;\n}",
+    "test": [
+      "JSON.stringify(uniqueArray([1,2,3,4,5,6])) === JSON.stringify([1,2,3,4,5,6])",
+      "JSON.stringify(uniqueArray(['apple','banana','orange','apple','orange'])) === JSON.stringify(['apple','banana','orange'])",
+      "JSON.stringify(uniqueArray(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'])) === JSON.stringify(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'])",
+      "JSON.stringify(uniqueArray([1,1,1,1,1,1,1,1,1,1])) === JSON.stringify([1])",
+      "JSON.stringify(uniqueArray([])) === JSON.stringify([])",
+      "JSON.stringify(uniqueArray([true,false,true,false,true,false,true,false,true,false])) === JSON.stringify([true,false])",
+      "JSON.stringify(uniqueArray([undefined,null,undefined,null,undefined,null])) === JSON.stringify([undefined,null])",
+      "JSON.stringify(uniqueArray([1,'2','1',1,'1'])) === JSON.stringify([1,'2','1'])",
+      "JSON.stringify(uniqueArray([5])) === JSON.stringify([5])",
+      "JSON.stringify(uniqueArray([Infinity,-Infinity,NaN])) === JSON.stringify([Infinity,-Infinity,NaN])"
+    ],
+    "title": "Unique Array",
+    "summary": "This function returns an array with unique elements of the provided array.",
+    "lang": "javascript"
   }
 ]
