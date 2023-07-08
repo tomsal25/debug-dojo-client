@@ -489,8 +489,8 @@
       "isEven(1000) === true",
       "isEven(-100) === true"
     ],
-    "title": "Square function",
-    "summary": "Calculate the square of a number",
+    "title": "Even checker",
+    "summary": "Checks if a number is even or odd",
     "lang": "javascript"
   },
   {
@@ -508,8 +508,8 @@
       "isEven(1000) === true",
       "isEven(-100) === true"
     ],
-    "title": "Square function",
-    "summary": "Calculate the square of a number",
+    "title": "Even checker",
+    "summary": "Checks if a number is even or odd",
     "lang": "javascript"
   },
   {
@@ -527,8 +527,8 @@
       "isEven(1000) === true",
       "isEven(-100) === true"
     ],
-    "title": "Square function",
-    "summary": "Calculate the square of a number",
+    "title": "Even checker",
+    "summary": "Checks if a number is even or odd",
     "lang": "javascript"
   },
   {
@@ -546,8 +546,8 @@
       "isEven(1000) === true",
       "isEven(-100) === true"
     ],
-    "title": "Square function",
-    "summary": "Calculate the square of a number",
+    "title": "Even checker",
+    "summary": "Checks if a number is even or odd",
     "lang": "javascript"
   },
   {
