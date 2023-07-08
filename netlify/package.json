@@ -1,0 +1,12 @@
+{
+  "name": "debug-dojo_functions",
+  "private": true,
+  "license": "MIT",
+  "version": "0.0.0",
+  "scripts": {},
+  "dependencies": {
+    "@netlify/functions": "^1.6.0",
+    "@types/node": "^14.18.50",
+    "typescript": "^4.9.5"
+  }
+}
